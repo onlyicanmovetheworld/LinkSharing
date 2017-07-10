@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="@localhost">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.2">
+    <root id="1"/>
+    <schema id="2" parent="1" name="employee">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="3" parent="1" name="hibernate_exercise"/>
+    <schema id="4" parent="1" name="information_schema"/>
+    <schema id="5" parent="1" name="mysql"/>
+    <schema id="6" parent="1" name="performance_schema"/>
+    <schema id="7" parent="1" name="servlet_exercise"/>
+    <schema id="8" parent="1" name="springdemo"/>
+    <schema id="9" parent="1" name="sys"/>
+    <schema id="10" parent="1" name="ttnddemo"/>
+    <table id="11" parent="2" name="employee_info"/>
+    <table id="12" parent="2" name="recordtable"/>
+    <routine id="13" parent="2" name="salaryUpdate">
+      <RoutineKind>procedure</RoutineKind>
+    </routine>
+    <routine id="14" parent="2" name="totalSal">
+      <RoutineKind>function</RoutineKind>
+    </routine>
+    <routine id="15" parent="2" name="totalSalary">
+      <RoutineKind>function</RoutineKind>
+    </routine>
+    <column id="16" parent="11" name="emp_id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="17" parent="11" name="emp_name">
+      <Position>2</Position>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <column id="18" parent="11" name="emp_age">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="19" parent="11" name="emp_salary">
+      <Position>4</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="20" parent="11" name="emp_dept">
+      <Position>5</Position>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <key id="21" parent="11" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>emp_id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <trigger id="22" parent="11" name="deductionChecker">
+      <Turn>after-row</Turn>
+      <Events>U</Events>
+    </trigger>
+    <column id="23" parent="12" name="emp_name">
+      <Position>1</Position>
+      <DataType>varchar(50)|0</DataType>
+    </column>
+    <column id="24" parent="12" name="updated_by">
+      <Position>2</Position>
+      <DataType>varchar(50)|0</DataType>
+    </column>
+    <column id="25" parent="12" name="changed_salary">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="26" parent="12" name="updatinon_date">
+      <Position>4</Position>
+      <DataType>date|0</DataType>
+    </column>
+    <argument id="27" parent="13" name="dept_name">
+      <DataType>varchar(50)|0</DataType>
+    </argument>
+    <argument id="28" parent="14">
+      <ArgumentDirection>R</ArgumentDirection>
+      <DataType>int(11)|0</DataType>
+    </argument>
+    <argument id="29" parent="14" name="dept_name">
+      <DataType>varchar(30)|0</DataType>
+    </argument>
+    <argument id="30" parent="15">
+      <ArgumentDirection>R</ArgumentDirection>
+      <DataType>int(11)|0</DataType>
+    </argument>
+    <argument id="31" parent="15" name="dept_name">
+      <DataType>varchar(30)|0</DataType>
+    </argument>
+  </database-model>
+</dataSource>
