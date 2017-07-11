@@ -21,7 +21,6 @@ public class ValidatorDao implements ValidatorDaoInterface,SessionInteractor,Use
         Object queryResult = query.uniqueResult();
         user = (User)queryResult;
         stopSession(session);
-        System.out.println(username);
         return existanceCheck(user);
     }
 

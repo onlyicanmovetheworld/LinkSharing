@@ -44,7 +44,7 @@ public class UserAccessController {
                 return modelAndView;
             }
 
-    @RequestMapping(value = "/registerUser" ,params = {"register"},method = RequestMethod.POST)
+    @RequestMapping(value = "/registerUser" ,method = RequestMethod.POST)
     public ModelAndView registerUser(@ModelAttribute("user") User user, BindingResult result, ModelMap modelMap, @RequestParam("photo")MultipartFile file) throws IOException {
         if(!file.isEmpty())
         {
