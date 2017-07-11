@@ -1,13 +1,15 @@
 package com.futureCorp.controller;
 
 import com.futureCorp.model.User;
-import com.futureCorp.service.RegistrationInterface;
+import com.futureCorp.service.LoginServiceInterface;
+import com.futureCorp.service.RegistrationServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,21 +22,28 @@ import java.nio.file.Paths;
 
 
 @Controller
-public class UserController {
+public class UserAccessController {
 
 
 
     @Autowired
-    RegistrationInterface registrationInterface;
+    RegistrationServiceInterface registrationServiceInterface;
 
+    @Autowired
+    LoginServiceInterface loginServiceInterface;
+
+    String view;
 
     @RequestMapping("/")
             public ModelAndView showHome()
             {
-                return new ModelAndView("home","user",new User());
+                ModelAndView modelAndView = new ModelAndView("home");
+                modelAndView.addObject("user",new User());
+
+                return modelAndView;
             }
 
-    @RequestMapping("/registerUser")
+    @RequestMapping(value = "/registerUser" ,params = {"register"},method = RequestMethod.POST)
     public ModelAndView registerUser(@ModelAttribute("user") User user, BindingResult result, ModelMap modelMap, @RequestParam("photo")MultipartFile file) throws IOException {
         if(!file.isEmpty())
         {
@@ -46,7 +55,15 @@ public class UserController {
             byte[] data = Files.readAllBytes(path);
             user.setPhoto(data);
         }
-        String view = registrationInterface.registering(user);
+        view = registrationServiceInterface.registering(user);
+
+        return new ModelAndView(view);
+    }
+
+    @RequestMapping(value = "/loginUser",params = {"login"},method = RequestMethod.POST)
+    public ModelAndView loginUser(@RequestParam("credentials") String credentials,@RequestParam("password") String password) throws IOException {
+
+        view =loginServiceInterface.loginUser(credentials,password);
 
         return new ModelAndView(view);
     }

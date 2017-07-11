@@ -12,8 +12,10 @@
 
     <context:component-scan base-package="com.futureCorp"/>
     <context:annotation-config/>
-    <bean id="registrationInterface" class="com.futureCorp.service.Registration"/>
-    <bean id="registerUserInterface" class="com.futureCorp.dao.RegisterUser"/>
+    <bean id="registrationServiceInterface" class="com.futureCorp.service.RegistrationService"/>
+    <bean id="registerDaoInterface" class="com.futureCorp.dao.RegisterDao"/>
+    <bean id="loginServiceInterface" class="com.futureCorp.service.LoginService"/>
+    <bean id="loginDaoInterface" class="com.futureCorp.dao.LoginDao"/>
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/views/jsp/"></property>
         <property name="suffix" value=".jsp"></property>
@@ -21,5 +23,5 @@
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
          <property name="maxUploadSize" value="10000000" />
     </bean>
-<mvc:annotation-driven/>
+<mvc:annotation-driven ignore-default-model-on-redirect="true"/>
 </beans>

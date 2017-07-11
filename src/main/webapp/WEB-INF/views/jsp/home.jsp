@@ -6,12 +6,31 @@
 </head>
 <body>
 <h1>Add New User</h1>
+<form method="post" action="loginUser" >
+    <table >
+        <tr>
+            <td>First Name : </td>
+
+            <td><input type="text" name="credentials" /></td>
+        </tr>
+        <tr>
+            <td>Last Name : </td>
+
+            <td><input type="password"  name="password"/></td>
+        </tr>
+        <tr>
+
+            <td> </td>
+            <td><input type="submit" name="login" value="Save" /></td>
+        </tr>
+    </table>
+</form>
 <form:form method="post" action="registerUser" modelAttribute="user" enctype="multipart/form-data">
     <table >
         <tr>
             <td>First Name : </td>
 
-            <td><form:input type="text" path="firstName" required="true" /></td>
+            <td><form:input type="text" path="firstName"  /></td>
         </tr>
         <tr>
             <td>Last Name : </td>
@@ -41,9 +60,11 @@
         <tr>
 
             <td> </td>
-            <td><input type="submit" value="Save" /></td>
+            <td><input type="submit" name="register" value="Save" /></td>
         </tr>
     </table>
 </form:form>
+
+
 </body>
 </html>
