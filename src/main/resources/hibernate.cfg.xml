@@ -20,6 +20,7 @@
         <!-- DB schema will be updated if needed -->
         <property name="hbm2ddl.auto">create</property>
         <mapping class="com.futureCorp.model.User"/>
+        <mapping class="com.futureCorp.model.Topic"/>
 
     </session-factory>
 </hibernate-configuration>

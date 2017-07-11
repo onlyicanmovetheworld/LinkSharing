@@ -1,13 +1,15 @@
 package com.futureCorp.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 
 @Entity
 public class User {
 
     @Id @GeneratedValue(strategy = GenerationType.TABLE)
-    private Integer id;
+    private Integer userId;
     private String firstName;
     private String lastName;
     private String username;
@@ -21,13 +23,15 @@ public class User {
     private Date dateCreated = new Date();
     @Temporal(TemporalType.DATE)
     private Date dateUpdated = new Date();
+    @OneToMany(mappedBy = "createdBy")
+    private Collection<Topic> topics = new ArrayList<>();
 
-    public Integer getId() {
-        return id;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getFirstName() {

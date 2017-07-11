@@ -2,11 +2,11 @@ package com.futureCorp.holder;
 
 import com.futureCorp.model.User;
 
-public interface UserChecker {
+public interface NullChecker {
 
-    default boolean existanceCheck(User user)
+    default boolean nullCheck(Object object)
     {
-        if(user!=null)
+        if(object!=null)
         {
             return true;
         }

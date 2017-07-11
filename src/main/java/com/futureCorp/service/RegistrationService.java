@@ -2,22 +2,26 @@ package com.futureCorp.service;
 
 
 import com.futureCorp.dao.RegisterDaoInterface;
+import com.futureCorp.holder.HttpSessionSetter;
 import com.futureCorp.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.servlet.http.HttpServletRequest;
 
-public class RegistrationService implements RegistrationServiceInterface {
+
+public class RegistrationService implements RegistrationServiceInterface,HttpSessionSetter {
 
     @Autowired
     RegisterDaoInterface registerDaoInterface;
 
     @Override
-    public String registering(User user) {
+    public String registering(User user, HttpServletRequest request) {
 
 
         if(registerDaoInterface.saveRegisteredUser(user))
         {
-            return "home";
+            setSessionAttribute("username",user.getUsername(),request.getSession());
+            return "dashboard";
         }
         else
         {

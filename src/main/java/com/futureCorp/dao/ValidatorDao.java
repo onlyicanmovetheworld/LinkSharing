@@ -1,14 +1,12 @@
 package com.futureCorp.dao;
 
 import com.futureCorp.holder.SessionInteractor;
-import com.futureCorp.holder.UserChecker;
+import com.futureCorp.holder.NullChecker;
 import com.futureCorp.model.User;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
-import java.rmi.server.Unreferenced;
-
-public class ValidatorDao implements ValidatorDaoInterface,SessionInteractor,UserChecker{
+public class ValidatorDao implements ValidatorDaoInterface,SessionInteractor,NullChecker {
     Session session;
     User user;
     @Override
@@ -21,7 +19,7 @@ public class ValidatorDao implements ValidatorDaoInterface,SessionInteractor,Use
         Object queryResult = query.uniqueResult();
         user = (User)queryResult;
         stopSession(session);
-        return existanceCheck(user);
+        return nullCheck(user);
     }
 
     @Override
@@ -36,6 +34,6 @@ public class ValidatorDao implements ValidatorDaoInterface,SessionInteractor,Use
         user = (User)queryResult;
         stopSession(session);
 
-        return existanceCheck(user);
+        return nullCheck(user);
     }
 }

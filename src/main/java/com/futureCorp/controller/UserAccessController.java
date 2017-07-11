@@ -4,6 +4,7 @@ import com.futureCorp.model.User;
 import com.futureCorp.service.LoginServiceInterface;
 import com.futureCorp.service.RegistrationServiceInterface;
 import com.futureCorp.service.ValidatorServiceInterface;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -16,6 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -45,7 +48,7 @@ public class UserAccessController {
             }
 
     @RequestMapping(value = "/registerUser" ,method = RequestMethod.POST)
-    public ModelAndView registerUser(@ModelAttribute("user") User user, BindingResult result, ModelMap modelMap, @RequestParam("photo")MultipartFile file) throws IOException {
+    public ModelAndView registerUser(@ModelAttribute("user") User user, BindingResult result, ModelMap modelMap, @RequestParam("photo")MultipartFile file,HttpServletRequest request) throws IOException {
         if(!file.isEmpty())
         {
             user.setPhoto(file.getBytes());
@@ -56,15 +59,16 @@ public class UserAccessController {
             byte[] data = Files.readAllBytes(path);
             user.setPhoto(data);
         }
-        view = registrationServiceInterface.registering(user);
+        view = registrationServiceInterface.registering(user,request);
 
         return new ModelAndView(view);
     }
 
     @RequestMapping(value = "/loginUser",params = {"login"},method = RequestMethod.POST)
-    public ModelAndView loginUser(@RequestParam("credentials") String credentials,@RequestParam("password") String password) throws IOException {
+    public ModelAndView loginUser(@RequestParam("credentials") String credentials, @RequestParam("password") String password, HttpServletRequest request) throws IOException {
 
-        view =loginServiceInterface.loginUser(credentials,password);
+        view =loginServiceInterface.loginUser(credentials,password,request);
+
 
         return new ModelAndView(view);
     }
