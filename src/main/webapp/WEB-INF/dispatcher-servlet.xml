@@ -16,6 +16,8 @@
     <bean id="registerDaoInterface" class="com.futureCorp.dao.RegisterDao"/>
     <bean id="loginServiceInterface" class="com.futureCorp.service.LoginService"/>
     <bean id="loginDaoInterface" class="com.futureCorp.dao.LoginDao"/>
+    <bean id="validatorServiceInterface" class="com.futureCorp.service.ValidatorService"/>
+    <bean id="validatorloginDaoInterface" class="com.futureCorp.dao.ValidatorDao"/>
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/views/jsp/"></property>
         <property name="suffix" value=".jsp"></property>
@@ -23,5 +25,5 @@
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
          <property name="maxUploadSize" value="10000000" />
     </bean>
-<mvc:annotation-driven ignore-default-model-on-redirect="true"/>
+<mvc:annotation-driven />
 </beans>

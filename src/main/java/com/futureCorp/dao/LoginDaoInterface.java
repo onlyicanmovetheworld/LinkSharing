@@ -6,7 +6,6 @@ import org.hibernate.cfg.Configuration;
 
 public interface LoginDaoInterface {
 
-    final SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 
 
     default boolean validateUserViaEmail(String credentials,String password)

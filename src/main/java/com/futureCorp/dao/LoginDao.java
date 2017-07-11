@@ -1,29 +1,27 @@
 package com.futureCorp.dao;
 
+import com.futureCorp.holder.SessionInteractor;
+import com.futureCorp.holder.UserChecker;
 import com.futureCorp.model.User;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
-public class LoginDao implements LoginDaoInterface{
+public class LoginDao implements LoginDaoInterface,SessionInteractor,UserChecker{
 
     User user;
     Session session;
     @Override
     public boolean validateUserViaEmail(String credentials,String password) {
         session=sessionFactory.openSession();
-        session.beginTransaction();
+        startSession(session);
         String queryString = "from User where emailId = :email AND password = :password";
         Query query = session.createQuery(queryString);
         query.setString("email", credentials);
         query.setString("password",password);
         Object queryResult = query.uniqueResult();
         user = (User)queryResult;
-        session.getTransaction().commit();
-        session.close();
-        if(user!=null)
-            return true;
-        else
-            return false;
+        stopSession(session);
+        return existanceCheck(user);
     }
 
     @Override
@@ -38,9 +36,7 @@ public class LoginDao implements LoginDaoInterface{
         user = (User)queryResult;
         session.getTransaction().commit();
         session.close();
-        if(user!=null)
-            return true;
-        else
-            return false;
+
+        return existanceCheck(user);
     }
 }

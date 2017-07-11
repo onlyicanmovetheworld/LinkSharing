@@ -1,20 +1,19 @@
 package com.futureCorp.dao;
 
 
+import com.futureCorp.holder.SessionInteractor;
 import com.futureCorp.model.User;
 import org.hibernate.Session;
 
-public class RegisterDao implements RegisterDaoInterface {
+public class RegisterDao implements RegisterDaoInterface,SessionInteractor {
 
     @Override
     public boolean saveRegisteredUser(User user) {
 
        Session session = sessionFactory.openSession();
-        session.beginTransaction();
+        startSession(session);
         Integer commited =(Integer) session.save(user);
-
-        session.getTransaction().commit();
-        session.close();
+        stopSession(session);
 
         if(commited>0)
         {

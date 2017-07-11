@@ -8,7 +8,7 @@ import org.hibernate.cfg.Configuration;
 
 public interface RegisterDaoInterface {
 
-    final SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+
 
    default boolean saveRegisteredUser(User user)
     {
