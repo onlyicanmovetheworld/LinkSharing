@@ -5,7 +5,7 @@
 <html>
 <head>
     <title>Link Sharing</title>
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" rel="stylesheet">
 </head>
 <body>
 
@@ -38,38 +38,34 @@
 </list>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
 <script>
     $(function () {
     var ambiquity = false;
 
-        $('#search').keyup(function () {
-
-            console.log("aya");
-            $.ajax({
-                url:"fetchTopics",
-                data:{topicLike:$("#search").val()},
-                type:"post",
-                success:function(r)
-                {
-                    console.log(r);
-                    if(r !=''){
-                        jQuery("#result").html("");
-                        jQuery.each(r, function(index,item) {
-                            jQuery("#result").append(jQuery("<option />")
-                                .attr("value",item.value)
-                                .text(item.key));
-                        });
+        $('#search').autocomplete({
+            source: function( request, response ) {
+                $.ajax({
+                    url : "fetchTopics",
+                    type:"post",
+                    accept:"application/json",
+                    data: {
+                        topicLike:$("#search").val()
+                    },
+                    success: function( data ) {
+                        response( $.map( data, function( item ) {
+                            return {
+                                label: item,
+                                value: item
+                            }
+                        }));
                     }
-
-
-                },
-                error:function(e)
-                {
-                    console.log(e);
-                }
-            });
-
+                });
+            },
+            autoFocus: true,
+            minLength: 0
         });
+
         $('#topicName').focusout(function () {
 
             $.ajax({

@@ -7,13 +7,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
+@EnableWebMvc
 public class DashboardController {
 
     @Autowired
@@ -23,7 +25,8 @@ public class DashboardController {
     FetchingDataServiceInterface fetchingDataServiceInterface;
 
     @RequestMapping(value = "/addTopic",method = RequestMethod.POST)
-    public  @ResponseBody String addTopic(@RequestParam("topicName")String name, @RequestParam String visibility, HttpServletRequest request)
+    public  @ResponseBody
+    String addTopic(@RequestParam("topicName")String name, @RequestParam String visibility, HttpServletRequest request)
     {
         return topicAddingServiceInterface.addingTopic(request.getSession().getAttribute("username").toString(),name,visibility);
 
@@ -32,6 +35,7 @@ public class DashboardController {
     @RequestMapping(value = "/fetchTopics",method = RequestMethod.POST)
     public  @ResponseBody List<String> fetchTopics(@RequestParam("topicLike")String nameLike)
     {
+
 
         return fetchingDataServiceInterface.fetchingList(nameLike);
 

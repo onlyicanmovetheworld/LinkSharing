@@ -1,8 +1,7 @@
 package com.futureCorp.dao;
 
 import com.futureCorp.holder.SessionInteractor;
-import com.futureCorp.model.User;
-import com.futureCorp.model.Visibility;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -15,12 +14,10 @@ Session session;
     public List<String> fetchTopic(String nameLike) {
         session=sessionFactory.openSession();
         startSession(session);
-        String queryString = "select name from Topic where name like :name AND visibility = :visibility";
+        String queryString = "select name from Topic where name like :name AND visibility = 1";
         Query query = session.createQuery(queryString);
         query.setString("name", nameLike+"%");
-        query.setString("visibility", Visibility.Public.getValue());
         List<String> names = query.list();
-
         stopSession(session);
         return names;
     }
