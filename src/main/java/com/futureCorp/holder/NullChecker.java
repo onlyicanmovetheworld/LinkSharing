@@ -6,7 +6,7 @@ public interface NullChecker {
 
     default boolean nullCheck(Object object)
     {
-        if(object!=null)
+        if(object==null)
         {
             return true;
         }

@@ -15,4 +15,8 @@ public interface ValidatorDaoInterface {
     {
         return false;
     }
+    default boolean validateTopicName(String username,String topicName)
+    {
+        return false;
+    }
 }

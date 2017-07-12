@@ -23,4 +23,11 @@ public class DashboardController {
         return topicAddingServiceInterface.addingTopic(request.getSession().getAttribute("username").toString(),name,visibility);
 
     }
+
+    @RequestMapping(value = "/fetchTopics",method = RequestMethod.POST)
+    public  @ResponseBody String fetchTopics(@RequestParam("topicLike")String likeName)
+    {
+        return topicAddingServiceInterface.fetchingList(likeName);
+
+    }
 }

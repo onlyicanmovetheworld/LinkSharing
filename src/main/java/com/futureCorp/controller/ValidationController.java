@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+
 
 @Controller
 public class ValidationController {
@@ -17,9 +19,9 @@ public class ValidationController {
 
     @RequestMapping("/validateUsername")
 
-    public  @ResponseBody String showHome(@RequestParam("credential")String credential)
+    public  @ResponseBody String validateCredentials(@RequestParam("credential")String credential)
     {
-       if(validatorServiceInterface.validation(credential))
+       if(validatorServiceInterface.validationOfUser(credential))
         {
             return "true";
         }
@@ -29,5 +31,21 @@ public class ValidationController {
         }
 
     }
+
+    @RequestMapping("/validateTopicName")
+
+    public  @ResponseBody String validateTopicName(@RequestParam("topicName")String topicName, HttpServletRequest request)
+    {
+        if(validatorServiceInterface.validationOfTopic(request.getSession().getAttribute("username").toString(),topicName))
+        {
+            return "true";
+        }
+        else
+        {
+            return "false";
+        }
+
+    }
+
 
 }

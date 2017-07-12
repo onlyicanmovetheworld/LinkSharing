@@ -11,7 +11,7 @@ public class ValidatorService implements ValidatorServiceInterface {
     ValidatorDaoInterface validatorDaoInterface;
 
     @Override
-    public boolean validation(String credential) {
+    public boolean validationOfUser(String credential) {
         if(credential.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$"))
         {
             return validated=validatorDaoInterface.validateEmailExistance(credential);
@@ -20,5 +20,12 @@ public class ValidatorService implements ValidatorServiceInterface {
         {
             return validatorDaoInterface.validateUsernameExistance(credential);
         }
+    }
+
+    @Override
+    public boolean validationOfTopic(String username,String topicName) {
+
+            return validatorDaoInterface.validateTopicName(username,topicName);
+
     }
 }

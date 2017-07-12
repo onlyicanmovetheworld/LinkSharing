@@ -26,7 +26,7 @@ public class LoginService implements LoginServiceInterface,NullChecker,HttpSessi
         {
             fetchedUser=loginDaoInterface.validateUserViaUsername(credentials,password);
         }
-        if(nullCheck(fetchedUser))
+        if(!nullCheck(fetchedUser)&& fetchedUser.getActive())
         {
             setSessionAttribute("username",fetchedUser.getUsername(),request.getSession());
             return "dashboard";

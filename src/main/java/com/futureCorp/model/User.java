@@ -8,7 +8,8 @@ import java.util.Date;
 @Entity
 public class User {
 
-    @Id @GeneratedValue(strategy = GenerationType.TABLE)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Integer userId;
     private String firstName;
     private String lastName;
@@ -25,6 +26,8 @@ public class User {
     private Date dateUpdated = new Date();
     @OneToMany(mappedBy = "createdBy")
     private Collection<Topic> topics = new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+    private Collection<Subscription> subscriptions = new ArrayList<>();
 
     public Integer getUserId() {
         return userId;
@@ -112,6 +115,22 @@ public class User {
 
     public void setDateUpdated(Date dateUpdated) {
         this.dateUpdated = dateUpdated;
+    }
+
+    public Collection<Topic> getTopics() {
+        return topics;
+    }
+
+    public void setTopics(Collection<Topic> topics) {
+        this.topics = topics;
+    }
+
+    public Collection<Subscription> getSubscriptions() {
+        return subscriptions;
+    }
+
+    public void setSubscriptions(Collection<Subscription> subscriptions) {
+        this.subscriptions = subscriptions;
     }
 
     @Override

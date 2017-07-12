@@ -1,6 +1,8 @@
 package com.futureCorp.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 
 @Entity
@@ -16,6 +18,8 @@ public class Topic {
     @Temporal(TemporalType.DATE)
     private Date dateUpdated= new Date();
     private Visibility visibility =Visibility.Public;
+    @OneToMany(mappedBy = "topic")
+    private Collection<Subscription> subscribed = new ArrayList<>();
 
     public Integer getTopicId() {
         return topicId;
@@ -63,5 +67,13 @@ public class Topic {
 
     public void setVisibility(Visibility visibility) {
         this.visibility = visibility;
+    }
+
+    public Collection<Subscription> getSubscribed() {
+        return subscribed;
+    }
+
+    public void setSubscribed(Collection<Subscription> subscribed) {
+        this.subscribed = subscribed;
     }
 }

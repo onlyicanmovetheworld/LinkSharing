@@ -20,6 +20,8 @@
     <bean id="validatorloginDaoInterface" class="com.futureCorp.dao.ValidatorDao"/>
     <bean id="topicAddingServiceInterface" class="com.futureCorp.service.TopicAddingService"/>
     <bean id="topicAddingDaoInterface" class="com.futureCorp.dao.TopicAddingDao"/>
+    <bean id="subscriptionServiceInterface" class="com.futureCorp.service.SubscriptionService"/>
+    <bean id="subscriberDaoInterface" class="com.futureCorp.dao.SubscriberDao"/>
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/views/jsp/"></property>
         <property name="suffix" value=".jsp"></property>
