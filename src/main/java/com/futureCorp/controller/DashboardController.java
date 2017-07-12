@@ -1,5 +1,6 @@
 package com.futureCorp.controller;
 
+import com.futureCorp.service.FetchingDataServiceInterface;
 import com.futureCorp.service.TopicAddingServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,12 +11,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 public class DashboardController {
 
     @Autowired
     TopicAddingServiceInterface topicAddingServiceInterface;
+
+    @Autowired
+    FetchingDataServiceInterface fetchingDataServiceInterface;
 
     @RequestMapping(value = "/addTopic",method = RequestMethod.POST)
     public  @ResponseBody String addTopic(@RequestParam("topicName")String name, @RequestParam String visibility, HttpServletRequest request)
@@ -25,9 +30,11 @@ public class DashboardController {
     }
 
     @RequestMapping(value = "/fetchTopics",method = RequestMethod.POST)
-    public  @ResponseBody String fetchTopics(@RequestParam("topicLike")String likeName)
+    public  @ResponseBody List<String> fetchTopics(@RequestParam("topicLike")String nameLike)
     {
-        return topicAddingServiceInterface.fetchingList(likeName);
+
+        return fetchingDataServiceInterface.fetchingList(nameLike);
+
 
     }
 }

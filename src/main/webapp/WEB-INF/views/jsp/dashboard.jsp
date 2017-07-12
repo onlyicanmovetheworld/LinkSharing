@@ -44,13 +44,14 @@
 
         $('#search').keyup(function () {
 
-
+            console.log("aya");
             $.ajax({
                 url:"fetchTopics",
                 data:{topicLike:$("#search").val()},
                 type:"post",
                 success:function(r)
                 {
+                    console.log(r);
                     if(r !=''){
                         jQuery("#result").html("");
                         jQuery.each(r, function(index,item) {
