@@ -1,10 +1,13 @@
 package com.futureCorp.dao;
 
+import com.futureCorp.model.Topic;
+
 import java.util.List;
+
 
 public interface FetchingDaoInterface {
 
-    default List<String> fetchTopic(String nameLike)
+    default List<Topic> fetchTopic(String nameLike)
     {
         return null;
     }

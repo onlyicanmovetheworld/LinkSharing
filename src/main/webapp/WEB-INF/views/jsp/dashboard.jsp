@@ -7,6 +7,12 @@
     <title>Link Sharing</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" rel="stylesheet">
 </head>
+<style>
+    p{
+        color:deepskyblue;
+    }
+
+</style>
 <body>
 
 <h1>Welcome,<%=session.getAttribute("username")%></h1>
@@ -16,12 +22,15 @@
         <tr>
             <td>Topic Name : </td>
 
-            <td><input type="text" id="topicName" /></td>
+            <td><input type="text" id="topicName" name="topicName" ></td>
         </tr>
         <tr>
             <td>Visibility : </td>
 
-            <td><input type="text"  id="visibility"/></td>
+            <td><select  id="visibility" name="visibility">
+                <option value="Public">Public</option>
+                <option value="Private">Private</option>
+            </select></td>
         </tr>
         <tr>
 
@@ -34,14 +43,87 @@
 
 <input type="text" id="search">
 <list id="result">
-
 </list>
+
+    <form method="post" action="javascript:void(0);">
+        <table >
+            <tr>
+                <td>Link : </td>
+
+                <td><input type="text" id="link" name="link" ></td>
+            </tr>
+            <tr>
+                <td>Link : </td>
+
+                <td><input type="text" id="desc" name="desc" ></td>
+            </tr>
+            <tr>
+                <td>Topic : </td>
+
+                <td><input type="text" id="topic" name="topic">
+
+               </td>
+            </tr>
+            <tr>
+
+                <td> </td>
+                <td><input type="submit" value="Save" id="addLinkResource" /></td>
+            </tr>
+        </table>
+    </form>
+
+
+    <form method="post" action="addDocument" enctype="multipart/form-data">
+        <table >
+            <tr>
+                <td>Link : </td>
+
+                <td><input type="file" id="link" name="link" ></td>
+            </tr>
+            <tr>
+                <td>Link : </td>
+
+                <td><input type="text" id="desc" name="desc" ></td>
+            </tr>
+            <tr>
+                <td>Topic : </td>
+
+                <td><select  id="topic" name="topic">
+                        <option>Topic</option>
+                </select></td>
+            </tr>
+            <tr>
+
+                <td> </td>
+                <td><input type="submit" value="Save" id="addDocumentResource" /></td>
+            </tr>
+        </table>
+    </form>
+
+
+
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.1/jquery.form.min.js"></script>
+
 <script>
     $(function () {
     var ambiquity = false;
+
+
+        $('#documentUpload').ajaxForm({
+            success: function(msg) {
+                alert("File has been uploaded successfully");
+            },
+            error: function(msg) {
+               alert("Couldn't upload file");
+            }
+        });
+
+
+
 
         $('#search').autocomplete({
             source: function( request, response ) {
@@ -53,18 +135,80 @@
                         topicLike:$("#search").val()
                     },
                     success: function( data ) {
+
                         response( $.map( data, function( item ) {
                             return {
-                                label: item,
-                                value: item
+                                label: item[0],
+                                value: "by"+item[1]
                             }
-                        }));
+                        }));},
+                        error:function(e)
+                        {
+                            console.log(e);
+                        }
+
+                });
+            },
+            select: function (event, ui) {
+                $.ajax({
+                    url:"loadTopic",
+                    data:{topicName:ui.item.value},
+                    type:"post",
+                    accept:"json",
+                    success:function(r)
+                    {
+
+                        console.log(r);
+                    },
+                    error:function(e)
+                    {
+
                     }
+                });
+                var location ="/loadTopic?topicName="+ui.item.value;
+                window.location.replace(location);
+
+
+            },
+            autoFocus: true,
+            minLength: 1
+        }).data("ui-autocomplete")._renderItem = function (ul, item) {
+            return $("<li>")
+                .data("item.autocomplete", item)
+                .append("<p style='color:blue;'>" + item.label + "</p>" + "<p style='color:red;+'>"+item.value + "</p>")
+                .appendTo(ul);
+                    };
+
+
+        $('#topic').autocomplete({
+            source: function( request, response ) {
+                $.ajax({
+                    url : "fetchTopics",
+                    type:"post",
+                    accept:"application/json",
+                    data: {
+                        topicLike:$("#topic").val()
+                    },
+                    success: function( data ) {
+
+                        response( $.map( data, function( item ) {
+                            return {
+                                label: item[0]+" By"+item[1],
+                                value: item[0]+" By"+item[1]
+                            }
+                        }));},
+                    error:function(e)
+                    {
+                        console.log(e);
+                    }
+
                 });
             },
             autoFocus: true,
-            minLength: 0
+            minLength: 1
         });
+
+
 
         $('#topicName').focusout(function () {
 
@@ -102,7 +246,7 @@
                     $.ajax({
                         url: "addTopic",
                         data: {
-                            topicName: $("#topicName").val(),
+                            name: $("#topicName").val(),
                             visibility: $("#visibility").val()
                         },
                         type: "post",
@@ -117,6 +261,30 @@
 
                 }
             });
+
+        $('#addLinkResource').click(function () {
+
+
+                $.ajax({
+                    url: "addLink",
+                    data: {
+                        topic: $("#topic").val(),
+                        link:$("#link").val(),
+                        desc:$("#desc").val()
+                    },
+                    type: "post",
+                    success: function (r) {
+                        console.log(r);
+
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    }
+                });
+
+
+        });
+
         });
 </script>
 </body>

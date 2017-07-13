@@ -1,6 +1,7 @@
 package com.futureCorp.service;
 
 import com.futureCorp.dao.FetchingDaoInterface;
+import com.futureCorp.model.Topic;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -11,7 +12,8 @@ public class FetchingDataService implements FetchingDataServiceInterface{
     FetchingDaoInterface fetchingDaoInterface;
 
     @Override
-    public List<String> fetchingList(String nameLike) {
-       return fetchingDaoInterface.fetchTopic(nameLike);
+    public List<Topic> fetchingList(String nameLike) {
+      return fetchingDaoInterface.fetchTopic(nameLike);
+
     }
 }

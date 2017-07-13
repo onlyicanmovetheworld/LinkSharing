@@ -23,11 +23,8 @@ public class User {
     @Temporal(TemporalType.DATE)
     private Date dateCreated = new Date();
     @Temporal(TemporalType.DATE)
-    private Date dateUpdated = new Date();
-    @OneToMany(mappedBy = "createdBy")
-    private Collection<Topic> topics = new ArrayList<>();
-    @OneToMany(mappedBy = "user")
-    private Collection<Subscription> subscriptions = new ArrayList<>();
+    private Date lastUpdated = new Date();
+
 
     public Integer getUserId() {
         return userId;
@@ -109,28 +106,12 @@ public class User {
         this.dateCreated = dateCreated;
     }
 
-    public Date getDateUpdated() {
-        return dateUpdated;
+    public Date getLastUpdated() {
+        return lastUpdated;
     }
 
-    public void setDateUpdated(Date dateUpdated) {
-        this.dateUpdated = dateUpdated;
-    }
-
-    public Collection<Topic> getTopics() {
-        return topics;
-    }
-
-    public void setTopics(Collection<Topic> topics) {
-        this.topics = topics;
-    }
-
-    public Collection<Subscription> getSubscriptions() {
-        return subscriptions;
-    }
-
-    public void setSubscriptions(Collection<Subscription> subscriptions) {
-        this.subscriptions = subscriptions;
+    public void setLastUpdated(Date lastUpdated) {
+        this.lastUpdated = lastUpdated;
     }
 
     @Override

@@ -43,7 +43,8 @@ public class ValidatorDao implements ValidatorDaoInterface,SessionInteractor,Nul
     public boolean validateTopicName(String username, String topicName) {
         session= sessionFactory.openSession();
         startSession(session);
-        String queryString = "from Topic  where name = :topicName and createdBy in (select userId from User where username = :username)";        Query query = session.createQuery(queryString);
+        String queryString = "from Topic  where name = :topicName and createdBy.username = :username";
+        Query query = session.createQuery(queryString);
         query.setString("topicName", topicName);
         query.setString("username", username);
         Object queryResult = query.uniqueResult();

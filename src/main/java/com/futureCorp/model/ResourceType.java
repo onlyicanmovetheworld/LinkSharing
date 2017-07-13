@@ -1,18 +1,19 @@
 package com.futureCorp.model;
 
-public enum Visibility {
+public enum ResourceType {
 
-    Private("Private"),
-    Public("Public");
+    Link("Link"),
+    Document("Document");
 
 
     private final String value;
 
-    Visibility(String value) {
+    ResourceType(String value) {
         this.value = value;
     }
 
     public String getValue() {
         return value;
     }
+
 }

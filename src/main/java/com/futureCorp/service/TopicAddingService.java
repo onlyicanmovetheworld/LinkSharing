@@ -17,16 +17,11 @@ public class TopicAddingService implements TopicAddingServiceInterface,Fetcher {
     SubscriptionServiceInterface subscriptionServiceInterface;
 
     @Override
-    public String addingTopic(String username, String topicName, String visibility) {
+    public String addingTopic(String username ,Topic topic) {
         User user = fetchUser(username);
-        Topic topic = new Topic();
         topic.setCreatedBy(user);
-        topic.setName(topicName);
-        if(visibility.equalsIgnoreCase("private"))
-        {
-            topic.setVisibility(Visibility.Private);
-        }
-        if(topicAddingDaoInterface.addTopic(topic)&&subscriptionServiceInterface.subscribe(username,topicName,"very serious").contains("Success"))
+
+        if(topicAddingDaoInterface.addTopic(topic)&&subscriptionServiceInterface.subscribe(username,topic.getName() ,"very serious").contains("Success"))
         {
             return "Successfully Added";
         }

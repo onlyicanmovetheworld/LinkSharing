@@ -16,10 +16,10 @@ public class Topic {
     @Temporal(TemporalType.DATE)
     private Date dateCreated = new Date();
     @Temporal(TemporalType.DATE)
-    private Date dateUpdated= new Date();
+    private Date lastUpdated= new Date();
+    @Enumerated(EnumType.STRING)
     private Visibility visibility =Visibility.Public;
-    @OneToMany(mappedBy = "topic")
-    private Collection<Subscription> subscribed = new ArrayList<>();
+
 
     public Integer getTopicId() {
         return topicId;
@@ -53,12 +53,12 @@ public class Topic {
         this.dateCreated = dateCreated;
     }
 
-    public Date getDateUpdated() {
-        return dateUpdated;
+    public Date getLastUpdated() {
+        return lastUpdated;
     }
 
-    public void setDateUpdated(Date dateUpdated) {
-        this.dateUpdated = dateUpdated;
+    public void setLastUpdated(Date lastUpdated) {
+        this.lastUpdated = lastUpdated;
     }
 
     public Visibility getVisibility() {
@@ -69,11 +69,5 @@ public class Topic {
         this.visibility = visibility;
     }
 
-    public Collection<Subscription> getSubscribed() {
-        return subscribed;
-    }
 
-    public void setSubscribed(Collection<Subscription> subscribed) {
-        this.subscribed = subscribed;
-    }
 }
