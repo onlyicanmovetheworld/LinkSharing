@@ -55,12 +55,12 @@
             <tr>
                 <td>Link : </td>
 
-                <td><input type="text" id="desc" name="desc" ></td>
+                <td><input type="text" id="descrip" name="desc" ></td>
             </tr>
             <tr>
                 <td>Topic : </td>
 
-                <td><input type="text" id="topic" name="topic">
+                <td><input type="text" id="topi" name="topic">
 
                </td>
             </tr>
@@ -136,8 +136,8 @@
 
                         response( $.map( data, function( item ) {
                             return {
-                                label: item[0],
-                                value: "by"+item[1]
+                                label: item[0]+"~By~"+item[1],
+                                value: item[0]+"~By~"+item[1]
                             }
                         }));},
                         error:function(e)
@@ -148,22 +148,9 @@
                 });
             },
             select: function (event, ui) {
-                $.ajax({
-                    url:"loadTopic",
-                    data:{topicName:ui.item.value},
-                    type:"post",
-                    accept:"json",
-                    success:function(r)
-                    {
 
-                        console.log(r);
-                    },
-                    error:function(e)
-                    {
 
-                    }
-                });
-                var location ="/loadTopic?topicName="+ui.item.value;
+                var location ="/searchTopic?topicName="+ui.item.value+"&index=0";
                 window.location.replace(location);
 
 
@@ -191,8 +178,8 @@
 
                         response( $.map( data, function( item ) {
                             return {
-                                label: item[0]+" By"+item[1],
-                                value: item[0]+" By"+item[1]
+                                label: item[0]+"~By~"+item[1],
+                                value: item[0]+"~By~"+item[1]
                             }
                         }));},
                     error:function(e)
@@ -205,6 +192,34 @@
             autoFocus: true,
             minLength: 1
         });
+        $('#topi').autocomplete({
+            source: function( request, response ) {
+                $.ajax({
+                    url : "fetchTopics",
+                    type:"post",
+                    accept:"application/json",
+                    data: {
+                        topicLike:$("#topi").val()
+                    },
+                    success: function( data ) {
+
+                        response( $.map( data, function( item ) {
+                            return {
+                                label: item[0]+"~By~"+item[1],
+                                value: item[0]+"~By~"+item[1]
+                            }
+                        }));},
+                    error:function(e)
+                    {
+                        console.log(e);
+                    }
+
+                });
+            },
+            autoFocus: true,
+            minLength: 1
+        });
+
 
 
 
@@ -266,9 +281,9 @@
                 $.ajax({
                     url: "addLink",
                     data: {
-                        topic: $("#topic").val(),
+                        topic: $("#topi").val(),
                         link:$("#link").val(),
-                        desc:$("#desc").val()
+                        desc:$("#descrip").val()
                     },
                     type: "post",
                     success: function (r) {

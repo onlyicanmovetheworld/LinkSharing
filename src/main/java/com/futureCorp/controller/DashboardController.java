@@ -1,6 +1,7 @@
 package com.futureCorp.controller;
 
 import com.futureCorp.model.CreateLinkedResource;
+import com.futureCorp.model.Resource;
 import com.futureCorp.model.ResourceType;
 import com.futureCorp.model.Topic;
 import com.futureCorp.service.FetchingDataServiceInterface;
@@ -15,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -53,11 +55,18 @@ public class DashboardController {
 
     }
 
-    @RequestMapping(value = "/loadTopic",method = RequestMethod.GET)
-    public String showTopic(@RequestParam("topicName")String topicName,ModelMap modelMap)
+    @RequestMapping(value = "/searchTopic",method = RequestMethod.GET)
+    public ModelAndView showTopic(@RequestParam("topicName")String topicName,@RequestParam("index")String index, ModelMap modelMap)
     {
-        modelMap.addAttribute("topicName",topicName);
-        return "topic";
+        ModelAndView modelAndView = new ModelAndView("searchedTopic");
+
+        List<Resource> resources = fetchingDataServiceInterface.fetchingList(topicName, Integer.parseInt(index));
+
+        modelAndView.addObject("topicList",resources);
+
+        System.out.println(resources.size());
+
+        return modelAndView;
 
 
     }

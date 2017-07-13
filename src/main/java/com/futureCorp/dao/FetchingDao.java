@@ -2,6 +2,7 @@ package com.futureCorp.dao;
 
 import com.futureCorp.holder.SessionInteractor;
 
+import com.futureCorp.model.Resource;
 import com.futureCorp.model.Topic;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -23,5 +24,22 @@ Session session;
         List<Topic> names = query.list();
         stopSession(session);
         return names;
+    }
+
+    @Override
+    public List<Resource> fetchTopic(String topicName, Integer index) {
+
+        session=sessionFactory.openSession();
+        startSession(session);
+        String queryString = "from Resource where topic.name = :name AND topic.visibility = :visibility";
+        Query query = session.createQuery(queryString);
+        query.setString("name", topicName);
+        query.setString("visibility", "Public");
+        query.setFirstResult(index);
+        query.setMaxResults(10);
+        List<Resource> names = query.list();
+        stopSession(session);
+        return names;
+
     }
 }
