@@ -73,12 +73,12 @@
     </form>
 
 
-    <form method="post" action="addDocument" enctype="multipart/form-data">
+    <form method="post" action="addDocument" enctype="multipart/form-data" id="documentUpload">
         <table >
             <tr>
                 <td>Link : </td>
 
-                <td><input type="file" id="link" name="link" ></td>
+                <td><input type="file" id="file" name="file" ></td>
             </tr>
             <tr>
                 <td>Link : </td>
@@ -88,9 +88,7 @@
             <tr>
                 <td>Topic : </td>
 
-                <td><select  id="topic" name="topic">
-                        <option>Topic</option>
-                </select></td>
+                <td><input type="text" id="topic" name="topic"></td>
             </tr>
             <tr>
 

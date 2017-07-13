@@ -46,6 +46,14 @@ public class UserAccessController {
 
                 return modelAndView;
             }
+    @RequestMapping("/forgotPassword")
+    public ModelAndView showForgot()
+    {
+        ModelAndView modelAndView = new ModelAndView("forgotPassword");
+
+
+        return modelAndView;
+    }
 
     @RequestMapping(value = "/registerUser" ,method = RequestMethod.POST)
     public ModelAndView registerUser(@ModelAttribute("user") User user, BindingResult result, ModelMap modelMap, @RequestParam("photo")MultipartFile file,HttpServletRequest request) throws IOException {

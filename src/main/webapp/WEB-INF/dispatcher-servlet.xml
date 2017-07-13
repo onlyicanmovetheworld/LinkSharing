@@ -26,6 +26,10 @@
     <bean id="fetchingDaoInterface" class="com.futureCorp.dao.FetchingDao"/>
     <bean id="resourceAddingServiceInterface" class="com.futureCorp.service.ResourceAddingService"/>
     <bean id="resourceAddingDaoInterface" class="com.futureCorp.dao.ResourceAddingDao"/>
+    <bean id="otpServiceInterface" class="com.futureCorp.service.OTPService"/>
+    <bean id="otpDaoInterface" class="com.futureCorp.dao.AddOTPDao"/>
+    <bean id="updationServiceInterface" class="com.futureCorp.service.UpdationService"/>
+    <bean id="updateDataDaoInterface" class="com.futureCorp.dao.UpdateDataDao"/>
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/views/jsp/"></property>
         <property name="suffix" value=".jsp"></property>

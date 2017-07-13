@@ -28,6 +28,7 @@
         </tr>
     </table>
 </form>
+<a href="forgotPassword">ForgotPassword..??</a>
 <form:form method="post" action="registerUser"  modelAttribute="user" enctype="multipart/form-data">
     <table >
         <tr>
