@@ -63,13 +63,25 @@ public class DashboardController {
         List<Resource> resources = fetchingDataServiceInterface.fetchingList(topicName, Integer.parseInt(index));
 
         modelAndView.addObject("topicList",resources);
-
+        modelAndView.addObject("topicName",topicName);
         System.out.println(resources.size());
 
         return modelAndView;
 
 
     }
+
+    @RequestMapping(value = "/searchAjaxTopic", method=RequestMethod.POST)
+    public @ResponseBody List<Resource> showTopic(@RequestParam("topicName")String topicName,@RequestParam("index")String index)
+    {
+
+        List resources = fetchingDataServiceInterface.fetchingList(topicName, Integer.parseInt(index));
+
+                return resources;
+
+    }
+
+
 
     @RequestMapping(value = "/addLink",method = RequestMethod.POST)
     public @ResponseBody String addLink(@ModelAttribute CreateLinkedResource createLinkedResource1, ModelMap modelMap,HttpServletRequest request)
@@ -98,9 +110,9 @@ public class DashboardController {
                 Random rand = new Random();
 
                 int  n = rand.nextInt(10000) + 1;
-
-                File serverFile = new File("C:/Users/Shubham/Downloads/LinkSharing/src/main/webapp/resources/assets"
-                        + File.separator +request.getSession().getAttribute("username")+"_"+createLinkedResource.getTopic()+"_"+n +file.getOriginalFilename());
+                String path ="C:/Users/Shubham/Downloads/LinkSharing/src/main/webapp/resources/assets/"
+                        +request.getSession().getAttribute("username")+createLinkedResource.getTopic()+n +file.getOriginalFilename();
+                File serverFile = new File(path);
                 BufferedOutputStream stream = new BufferedOutputStream(
                         new FileOutputStream(serverFile));
                 stream.write(bytes);
@@ -108,7 +120,7 @@ public class DashboardController {
 
                 System.out.println("Server File Location="
                         + serverFile.getAbsolutePath());
-                    createLinkedResource.setLink(serverFile.getAbsolutePath());
+                    createLinkedResource.setLink(path);
                 return resourceAddingServiceInterface.addingResource(createLinkedResource, request);
             } catch (Exception e) {
                 return "You failed to upload " + file.getOriginalFilename() + " => " + e.getMessage();

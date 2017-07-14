@@ -136,8 +136,8 @@
 
                         response( $.map( data, function( item ) {
                             return {
-                                label: item[0]+"~By~"+item[1],
-                                value: item[0]+"~By~"+item[1]
+                                label: item[0]+"By"+item[1],
+                                value: item[0]+"By"+item[1]
                             }
                         }));},
                         error:function(e)
@@ -178,8 +178,8 @@
 
                         response( $.map( data, function( item ) {
                             return {
-                                label: item[0]+"~By~"+item[1],
-                                value: item[0]+"~By~"+item[1]
+                                label: item[0]+"By"+item[1],
+                                value: item[0]+"By"+item[1]
                             }
                         }));},
                     error:function(e)
@@ -205,8 +205,8 @@
 
                         response( $.map( data, function( item ) {
                             return {
-                                label: item[0]+"~By~"+item[1],
-                                value: item[0]+"~By~"+item[1]
+                                label: item[0]+"By"+item[1],
+                                value: item[0]+"By"+item[1]
                             }
                         }));},
                     error:function(e)

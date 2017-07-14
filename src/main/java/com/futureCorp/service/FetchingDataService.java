@@ -21,7 +21,7 @@ public class FetchingDataService implements FetchingDataServiceInterface{
     @Override
     public List<Resource> fetchingList(String topicName, Integer index) {
 
-        topicName = topicName.substring(0,topicName.indexOf("~"));
+        topicName = topicName.substring(0,topicName.indexOf("By"));
         System.out.println(topicName);
         return fetchingDaoInterface.fetchTopic(topicName,index);
     }

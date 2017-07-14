@@ -30,15 +30,15 @@ Session session;
     public List<Resource> fetchTopic(String topicName, Integer index) {
 
         session=sessionFactory.openSession();
-        startSession(session);
+
         String queryString = "from Resource where topic.name = :name AND topic.visibility = :visibility";
         Query query = session.createQuery(queryString);
         query.setString("name", topicName);
         query.setString("visibility", "Public");
         query.setFirstResult(index);
-        query.setMaxResults(10);
+        query.setMaxResults(2);
         List<Resource> names = query.list();
-        stopSession(session);
+
         return names;
 
     }

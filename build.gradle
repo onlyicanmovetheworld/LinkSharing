@@ -31,6 +31,7 @@ dependencies {
         compile group: 'javax.validation', name: 'validation-api', version: '1.0.0.GA'
         compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.8.9'
         compile group: 'javax.mail', name: 'mail', version: '1.4.1'
+        compile group: 'commons-lang', name: 'commons-lang', version: '2.6'
 }
 
 
