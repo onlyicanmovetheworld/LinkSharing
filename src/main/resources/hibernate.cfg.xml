@@ -24,5 +24,6 @@
         <mapping class="com.futureCorp.model.Subscription"/>
         <mapping class="com.futureCorp.model.Resource"/>
         <mapping class="com.futureCorp.model.OTP"/>
+        <mapping class="com.futureCorp.model.ReadingItem"/>
     </session-factory>
 </hibernate-configuration>

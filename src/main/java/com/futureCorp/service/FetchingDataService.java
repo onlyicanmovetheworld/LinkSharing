@@ -5,6 +5,7 @@ import com.futureCorp.model.Resource;
 import com.futureCorp.model.Topic;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public class FetchingDataService implements FetchingDataServiceInterface{
@@ -19,10 +20,25 @@ public class FetchingDataService implements FetchingDataServiceInterface{
     }
 
     @Override
+    public List<Topic> fetchingSubscribedList(String nameLike, HttpServletRequest request) {
+        return fetchingDaoInterface.fetchSubscribedTopic(nameLike,request.getSession().getAttribute("username").toString());
+
+    }
+
+    @Override
     public List<Resource> fetchingList(String topicName, Integer index) {
 
         topicName = topicName.substring(0,topicName.indexOf("By"));
         System.out.println(topicName);
-        return fetchingDaoInterface.fetchTopic(topicName,index);
+        if(index==0)
+        {
+
+        }
+        return fetchingDaoInterface.fetchResource(topicName,index);
+    }
+
+    @Override
+    public List<Object> fetchingListForAdmin(String className, String type) {
+        return fetchingDaoInterface.fetchDataforAdmin(className,type);
     }
 }

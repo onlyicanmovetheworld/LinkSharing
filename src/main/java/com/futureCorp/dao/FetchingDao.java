@@ -27,7 +27,20 @@ Session session;
     }
 
     @Override
-    public List<Resource> fetchTopic(String topicName, Integer index) {
+    public List<Topic> fetchSubscribedTopic(String nameLike,String username) {
+        session=sessionFactory.openSession();
+        startSession(session);
+        String queryString = " select topic.name,topic.createdBy.username from Subscription where topic.name like :name and  user.username = :username";
+        Query query = session.createQuery(queryString);
+        query.setString("name", nameLike+"%");
+        query.setString("username",username);
+        List<Topic> names = query.list();
+        stopSession(session);
+        return names;
+    }
+
+    @Override
+    public List<Resource> fetchResource(String topicName, Integer index) {
 
         session=sessionFactory.openSession();
 
@@ -40,6 +53,51 @@ Session session;
         List<Resource> names = query.list();
 
         return names;
+
+    }
+
+    @Override
+    public List<Object> fetchDataforAdmin(String className, String type) {
+
+        session = sessionFactory.openSession();
+        String queryString;
+        switch (type)
+        {
+            case "Active":{
+                                queryString ="From User where active = true";
+                                break;
+            }
+            case "inActive":{
+                queryString ="From User where active = false";
+                break;
+            }
+            case "Private":{
+                queryString ="From Topic where visibility = 'Private'";
+                break;
+            }
+            case "Public":{
+                queryString ="From Topic where visibility = 'Public'";
+                break;
+            }
+            case "Link":{
+                queryString ="From Resource where resourceType = 'Link'";
+                break;
+            }
+            case "Document":{
+                queryString ="From Resource where  resourceType = 'Document'";
+                break;
+            }
+
+            default:{
+                        queryString="From "+className   ;
+            }
+        }
+
+        Query query = session.createQuery(queryString);
+
+        List<Object> fetchedData = query.list();
+
+        return fetchedData;
 
     }
 }

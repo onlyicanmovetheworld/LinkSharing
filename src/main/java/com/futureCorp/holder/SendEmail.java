@@ -10,8 +10,8 @@ public interface SendEmail {
 
     final String password="iwillgetjob@ttn";
     final String from="linksharing.noReply@gmail.com";
-    final String sub="OTP to reset password";
-     static Boolean send(String to,String msg) throws UnsupportedEncodingException {
+
+     static Boolean send(String to,String msg,String sub) throws UnsupportedEncodingException {
         //Get properties object
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
@@ -32,9 +32,9 @@ public interface SendEmail {
             MimeMessage message = new MimeMessage(session);
             message.addRecipient(Message.RecipientType.TO,new InternetAddress(to));
             message.setSubject(sub);
-            message.setText(msg);
+
             message.setFrom(new InternetAddress(from,"noReply@linkSharing"));
-            //send message
+            message.setContent(msg,"text/html");
             Transport.send(message);
             System.out.println("message sent successfully");
             return true;

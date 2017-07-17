@@ -1,11 +1,13 @@
 package com.futureCorp.controller;
 
+import com.futureCorp.holder.SizeFinder;
 import com.futureCorp.model.CreateLinkedResource;
 import com.futureCorp.model.Resource;
 import com.futureCorp.model.ResourceType;
 import com.futureCorp.model.Topic;
 import com.futureCorp.service.FetchingDataServiceInterface;
 import com.futureCorp.service.ResourceAddingServiceInterface;
+import com.futureCorp.service.SendInviteInterface;
 import com.futureCorp.service.TopicAddingServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,7 +28,7 @@ import java.util.Random;
 
 @Controller
 @EnableWebMvc
-public class DashboardController {
+public class DashboardController implements SizeFinder {
 
     @Autowired
     TopicAddingServiceInterface topicAddingServiceInterface;
@@ -37,10 +39,16 @@ public class DashboardController {
     @Autowired
     ResourceAddingServiceInterface resourceAddingServiceInterface;
 
+    @Autowired
+    SendInviteInterface sendInviteInterface;
+
+
+
+
     @RequestMapping(value = "/addTopic",method = RequestMethod.POST)
     public  @ResponseBody String addTopic(@ModelAttribute Topic topic, HttpServletRequest request)
     {
-        System.out.println(topic.getName());
+
         return topicAddingServiceInterface.addingTopic(request.getSession().getAttribute("username").toString(),topic);
 
     }
@@ -55,11 +63,26 @@ public class DashboardController {
 
     }
 
+    @RequestMapping(value = "/fetchSubscribedTopics",method = RequestMethod.POST)
+    public  @ResponseBody List<Topic> fetchSubscribedTopics(@RequestParam("topicLike")String nameLike,HttpServletRequest request)
+    {
+
+
+        return fetchingDataServiceInterface.fetchingSubscribedList(nameLike,request);
+
+
+    }
+
+
     @RequestMapping(value = "/searchTopic",method = RequestMethod.GET)
     public ModelAndView showTopic(@RequestParam("topicName")String topicName,@RequestParam("index")String index, ModelMap modelMap)
     {
         ModelAndView modelAndView = new ModelAndView("searchedTopic");
-
+        if(index.equalsIgnoreCase("0"))
+        {
+            modelAndView.addObject("maxSize",fetchMaxSize(topicName));
+            System.out.println("there"+fetchMaxSize(topicName));
+        }
         List<Resource> resources = fetchingDataServiceInterface.fetchingList(topicName, Integer.parseInt(index));
 
         modelAndView.addObject("topicList",resources);
@@ -70,6 +93,19 @@ public class DashboardController {
 
 
     }
+
+   @RequestMapping(value = "/sendInvite",method = RequestMethod.POST)
+    public @ResponseBody String sendInvite(@RequestParam("email") String email,@RequestParam("topic") String topic,HttpServletRequest request)
+    {
+
+
+        String who = request.getSession().getAttribute("username").toString();
+        return sendInviteInterface.sendingInviteEmail(email,topic,who)+"";
+    }
+
+
+
+
 
     @RequestMapping(value = "/searchAjaxTopic", method=RequestMethod.POST)
     public @ResponseBody List<Resource> showTopic(@RequestParam("topicName")String topicName,@RequestParam("index")String index)
@@ -112,6 +148,7 @@ public class DashboardController {
                 int  n = rand.nextInt(10000) + 1;
                 String path ="C:/Users/Shubham/Downloads/LinkSharing/src/main/webapp/resources/assets/"
                         +request.getSession().getAttribute("username")+createLinkedResource.getTopic()+n +file.getOriginalFilename();
+                path=path.replaceAll(" ","_");
                 File serverFile = new File(path);
                 BufferedOutputStream stream = new BufferedOutputStream(
                         new FileOutputStream(serverFile));
@@ -133,5 +170,16 @@ public class DashboardController {
         }
 
     }
+
+    @RequestMapping("/logout")
+    public String logout(HttpServletRequest request)
+    {
+        request.getSession().invalidate();
+        return ("redirect:/");
+    }
+
+
+
+
 
 }

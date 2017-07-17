@@ -97,8 +97,32 @@
             </tr>
         </table>
     </form>
+<table>
+<tr>
+    <td>Link : </td>
+
+    <td><input type="email" id="email" name="desc" ></td>
+</tr>
+<tr>
+    <td>Topic : </td>
+
+    <td><input type="text" id="inviteTopic" name="topic"></td>
+</tr>
+<tr>
+
+    <td> </td>
+    <td><input type="submit" value="Send" id="sendInvite" /></td>
+</tr>
+</table>
+
+<br>
+<br>
 
 
+
+<br>
+<br>
+<button id="logout"value="logout">LogOut</button>
 
 
 
@@ -111,6 +135,13 @@
     var ambiquity = false;
 
 
+    $('#logout').click(function () {
+        window.location.replace("/logout");
+
+    });
+
+
+
         $('#documentUpload').ajaxForm({
             success: function(msg) {
                 alert("File has been uploaded successfully");
@@ -121,7 +152,29 @@
         });
 
 
+        $('#sendInvite').click(function () {
 
+
+            $.ajax({
+                url : "sendInvite",
+                type:"post",
+                accept:"application/json",
+                data: {
+                    email:$("#email").val(),
+                    topic:$("#inviteTopic").val()
+                },
+                success: function( data ) {
+                    alert("Send Invitation");
+                    },
+                error:function(e)
+                {
+                    console.log(e);
+                }
+
+            });
+
+
+        });
 
         $('#search').autocomplete({
             source: function( request, response ) {
@@ -137,7 +190,8 @@
                         response( $.map( data, function( item ) {
                             return {
                                 label: item[0]+"By"+item[1],
-                                value: item[0]+"By"+item[1]
+                                value: item[0]+"By"+item[1],
+                                targetUrl:"/searchTopic?topicName="+item[0]+"By"+item[1]+"&index=0"
                             }
                         }));},
                         error:function(e)
@@ -150,8 +204,7 @@
             select: function (event, ui) {
 
 
-                var location ="/searchTopic?topicName="+ui.item.value+"&index=0";
-                window.location.replace(location);
+                window.location.href=ui.item.targetUrl;
 
 
             },
@@ -168,7 +221,7 @@
         $('#topic').autocomplete({
             source: function( request, response ) {
                 $.ajax({
-                    url : "fetchTopics",
+                    url : "fetchSubscribedTopics",
                     type:"post",
                     accept:"application/json",
                     data: {
@@ -192,10 +245,41 @@
             autoFocus: true,
             minLength: 1
         });
+
+
+        $('#inviteTopic').autocomplete({
+            source: function( request, response ) {
+                $.ajax({
+                    url : "fetchSubscribedTopics",
+                    type:"post",
+                    accept:"application/json",
+                    data: {
+                        topicLike:$("#inviteTopic").val()
+                    },
+                    success: function( data ) {
+
+                        response( $.map( data, function( item ) {
+                            return {
+                                label: item[0]+"By"+item[1],
+                                value: item[0]+"By"+item[1]
+                            }
+                        }));},
+                    error:function(e)
+                    {
+                        console.log(e);
+                    }
+
+                });
+            },
+            autoFocus: true,
+            minLength: 1
+        });
+
+
         $('#topi').autocomplete({
             source: function( request, response ) {
                 $.ajax({
-                    url : "fetchTopics",
+                    url : "fetchSubscribedTopics",
                     type:"post",
                     accept:"application/json",
                     data: {
@@ -298,7 +382,23 @@
 
         });
 
+        $(window).on('popstate', function(e) {
+            if($.session.get("username")!=null)
+            {   alert("hello");
+                e.preventDefault();
+
+            }
+            else
+            {
+                alert("hello1");
+            }
+
         });
+
+
+        });
+
+
 </script>
 </body>
 </html>

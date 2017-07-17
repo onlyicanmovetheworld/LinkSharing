@@ -1,5 +1,6 @@
 package com.futureCorp.service;
 
+import com.futureCorp.dao.AddReadingItemDaoInterface;
 import com.futureCorp.dao.ResourceAddingDaoInterface;
 import com.futureCorp.holder.Fetcher;
 import com.futureCorp.model.CreateLinkedResource;
@@ -13,6 +14,9 @@ public class ResourceAddingService implements ResourceAddingServiceInterface,Fet
     @Autowired
     ResourceAddingDaoInterface resourceAddingDaoInterface;
 
+    @Autowired
+    AddReadingItemDaoInterface addReadingItemDaoInterface;
+
     @Override
     public String addingResource(CreateLinkedResource createLinkedResource, HttpServletRequest request) {
         Resource resource = new Resource();
@@ -24,7 +28,7 @@ public class ResourceAddingService implements ResourceAddingServiceInterface,Fet
         resource.setDescription(createLinkedResource.getDesc());
         resource.setLink(createLinkedResource.getLink());
         resource.setResourceType(createLinkedResource.getResourceType());
-        if(resourceAddingDaoInterface.AddResource(resource))
+        if(resourceAddingDaoInterface.AddResource(resource)&&addReadingItemDaoInterface.addReadingItem(resource))
         {
             return "Resource added Successfully";
         }

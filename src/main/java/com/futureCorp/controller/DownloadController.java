@@ -25,11 +25,11 @@ public class DownloadController {
     public void downloadPDFResource( HttpServletRequest request,
                                      HttpServletResponse response)
     {
-        System.out.println("aya");
+
 
         try
         {
-            System.out.println("ayya");
+
             String fileName=request.getParameter("filePath");
 
          fileName=fileName.replaceAll("'","\\");
@@ -57,12 +57,12 @@ public class DownloadController {
                 byte tmp[]= ArrayUtils.subarray(b, 0, data);
                 outStream.write(tmp);
             }
-            System.out.println("downloaded");
+
 
         }
         catch (Exception ex) {
             ex.printStackTrace();
-            System.out.println("gaya");
+
         }
     }
 

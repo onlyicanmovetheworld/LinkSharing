@@ -1,5 +1,6 @@
 package com.futureCorp.service;
 
+import com.futureCorp.dao.AddReadingItemDaoInterface;
 import com.futureCorp.dao.SubscriberDaoInterface;
 import com.futureCorp.holder.Fetcher;
 import com.futureCorp.model.Seriousness;
@@ -12,6 +13,9 @@ public class SubscriptionService implements SubscriptionServiceInterface,Fetcher
 
     @Autowired
     SubscriberDaoInterface subscriberDaoInterface;
+
+    @Autowired
+    AddReadingItemDaoInterface addReadingItemDaoInterface;
 
     @Override
     public String subscribe(String username,String topicName,String seriousness) {
@@ -27,6 +31,10 @@ public class SubscriptionService implements SubscriptionServiceInterface,Fetcher
         else if(seriousness.equalsIgnoreCase("casual"))
         {
             subscription.setSeriousness(Seriousness.Casual);
+        }
+        else
+        {
+            subscription.setSeriousness(Seriousness.Serious);
         }
         if(subscriberDaoInterface.addSubscriber(subscription))
         {

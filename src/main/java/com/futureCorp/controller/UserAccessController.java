@@ -38,13 +38,19 @@ public class UserAccessController {
 
     String view;
 
-    @RequestMapping("/")
-            public ModelAndView showHome()
-            {
-                ModelAndView modelAndView = new ModelAndView("home");
-                modelAndView.addObject("user",new User());
+    @RequestMapping("")
+            public ModelAndView showHome(HttpServletRequest request)
+            {   if(request.getSession().getAttribute("username")==null) {
 
+                ModelAndView modelAndView = new ModelAndView("home");
+                modelAndView.addObject("user", new User());
+                System.out.println("aya1");
                 return modelAndView;
+            }
+            else
+            {
+               return new ModelAndView("redirect:/dashboard");
+            }
             }
     @RequestMapping("/forgotPassword")
     public ModelAndView showForgot()
@@ -56,7 +62,7 @@ public class UserAccessController {
     }
 
     @RequestMapping(value = "/registerUser" ,method = RequestMethod.POST)
-    public ModelAndView registerUser(@ModelAttribute("user") User user, BindingResult result, ModelMap modelMap, @RequestParam("photo")MultipartFile file,HttpServletRequest request) throws IOException {
+    public String registerUser(@ModelAttribute("user") User user, BindingResult result, ModelMap modelMap, @RequestParam("photo")MultipartFile file,HttpServletRequest request) throws IOException {
         if(!file.isEmpty())
         {
             user.setPhoto(file.getBytes());
@@ -69,18 +75,49 @@ public class UserAccessController {
         }
         view = registrationServiceInterface.registering(user,request);
 
-        return new ModelAndView(view);
+        view="redirect:/dashboard";
+        return view;
     }
 
     @RequestMapping(value = "/loginUser",params = {"login"},method = RequestMethod.POST)
-    public ModelAndView loginUser(@RequestParam("credentials") String credentials, @RequestParam("password") String password, HttpServletRequest request) throws IOException {
+    public String loginUser(@RequestParam("credentials") String credentials, @RequestParam("password") String password, HttpServletRequest request) throws IOException {
+
+
 
         view =loginServiceInterface.loginUser(credentials,password,request);
-
-
-        return new ModelAndView(view);
+        view="redirect:/dashboard";
+        return view;
     }
 
+    @RequestMapping("/subscribeToInvite")
+    public String subscribeToInvite(@RequestParam("name") String topicName,HttpServletRequest request)
+    {
+        String name=topicName.substring(0,topicName.indexOf("By"));
+        String username=topicName.substring(topicName.indexOf("By")+2,topicName.length());
+        if(request.getSession().getAttribute("username")==null) {
+            request.getSession().setAttribute("inviteTopic", topicName);
 
+            return "redirect:/";
+        }
+        else
+        {
+            return "invite";
+        }
+
+    }
+
+    @RequestMapping("/dashboard")
+    public String redirectDashboard(HttpServletRequest httpServletRequest)
+    {
+        if(httpServletRequest.getSession().getAttribute("inviteTopic")==null)
+        {
+            return "dashboard";
+        }
+        else
+        {   String topic =httpServletRequest.getSession().getAttribute("inviteTopic").toString();
+        httpServletRequest.getSession().setAttribute("inviteTopic",null);
+            return "redirect:/subscribeToInvite?name="+topic;
+        }
+    }
 
 }

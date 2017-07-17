@@ -31,9 +31,14 @@
     $(function () {
 
         var index = 0;
-
+        var maxSize="${maxSize}";
 
         $('#prev').attr('disabled',true);
+
+        if(index >= maxSize-2)
+        {
+            $('#next').attr('disabled',true);
+        }
 
         $('#next').click(function () {
             index+=2;
@@ -42,6 +47,10 @@
             {
                 $('#prev').attr('disabled',false);
             }
+            if(index >= maxSize-2)
+            {
+                $('#next').attr('disabled',true);
+            }
             fetchData();
         });
         $('#prev').click(function () {
@@ -49,6 +58,10 @@
             if(index==0)
             {
                 $('#prev').attr('disabled',true);
+            }
+             if(index < maxSize-2)
+            {
+                $('#next').attr('disabled',false);
             }
             fetchData();
         });

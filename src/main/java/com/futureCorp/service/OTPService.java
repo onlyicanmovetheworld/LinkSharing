@@ -2,6 +2,7 @@ package com.futureCorp.service;
 
 import com.futureCorp.dao.AddOTPDao;
 import com.futureCorp.dao.AddOTPDaoInterface;
+import com.futureCorp.dao.AddReadingItemDaoInterface;
 import com.futureCorp.holder.SendEmail;
 import com.futureCorp.model.OTP;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ public class OTPService implements OTPServiceInterface,SendEmail {
     @Autowired
     AddOTPDaoInterface otpDaoInterface;
 
+
     @Override
     public Boolean sendingOTP(String email) throws UnsupportedEncodingException {
         Random rand = new Random();
@@ -23,7 +25,7 @@ public class OTPService implements OTPServiceInterface,SendEmail {
         otp.setEmail(email);
         otp.setOtp(n);
         String OTP = "OTP to reset your password is "+n+"\n\n\n\nRegards LinkSharing";
-        if(SendEmail.send(email,OTP))
+        if(SendEmail.send(email,OTP,"OTP to reset password"))
         {
             return otpDaoInterface.addVerficationCode(otp);
         }
