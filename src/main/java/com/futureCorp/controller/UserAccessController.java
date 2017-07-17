@@ -44,7 +44,7 @@ public class UserAccessController {
 
                 ModelAndView modelAndView = new ModelAndView("home");
                 modelAndView.addObject("user", new User());
-                System.out.println("aya1");
+
                 return modelAndView;
             }
             else
@@ -79,7 +79,7 @@ public class UserAccessController {
         return view;
     }
 
-    @RequestMapping(value = "/loginUser",params = {"login"},method = RequestMethod.POST)
+    @RequestMapping(value = "/loginUser",method = RequestMethod.POST)
     public String loginUser(@RequestParam("credentials") String credentials, @RequestParam("password") String password, HttpServletRequest request) throws IOException {
 
 
