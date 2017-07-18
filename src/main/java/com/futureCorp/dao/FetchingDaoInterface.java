@@ -31,4 +31,9 @@ public interface FetchingDaoInterface {
     }
 
 
+    default List<Resource> fetchRecentShares() {
+
+        return null;
+    }
+
 }

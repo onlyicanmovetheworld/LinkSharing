@@ -54,14 +54,18 @@ NEW</pre>
         <div class="col-md-7 ">
             <ul class="list-group">
                 <li class="list-group-item head-color" >Recent shares</li>
+
+
                 <li class="list-group-item">
+                  <c:if test="${not empty recentShares}">
+                    <c:forEach items="${recentShares}" var="item">
                     <div class="media">
                         <div class="media-left">
                             <img src="/resources/assets/unknown.png" width="120" height="120">
                         </div>
                         <div class="media-body">
-                            <h4 class="media-heading">Uday Pratap singh  <small><i>@uday 5min</i></small><a href="" style="float:right; font-size:12px">Grails</a></h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                            <h4 class="media-heading">${item.createdBy.firstName}   ${item.createdBy.lastName}  <small><i>@${item.createdBy.username} </i></small><a href="" style="float:right; font-size:12px">${item.topic.name}</a></h4>
+                            <p>${item.description}</p>
                             <div class="pgd">
                                 <div class="soc">
                                     <a href="#" class="fa fa-facebook"></a>
@@ -72,25 +76,12 @@ NEW</pre>
                             </div>
                         </div>
                     </div>
-                    <div class="media" style="padding-top :10px">
-                        <div class="media-left">
-                            <img src="/resources/assets/unknown.png" width="120" height="120">
-                        </div>
-                        <div class="media-body">
-                            <h4 class="media-heading">Uday Pratap singh  <small><i>@uday 10min</i></small><a href="" style="float:right;font-size:12px">Grails</a></h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                            <div class="pgd">
-                                <div class="soc">
-                                    <a href="#" class="fa fa-facebook"></a>
-                                    <a href="#" class="fa fa-twitter"></a>
-                                    <a href="#" class="fa fa-google-plus"></a>
-                                </div>
-                                <a href="" style="float:right">View post</a>
-                            </div>
-                        </div>
-                    </div>
+                    </c:forEach>
+                </c:if>
+
                 </li>
             </ul>
+
             <ul class="list-group">
                 <li class="list-group-item head-color" >
                     <div class="top">

@@ -100,4 +100,18 @@ Session session;
         return fetchedData;
 
     }
+
+
+    @Override
+    public List<Resource> fetchRecentShares() {
+        session = sessionFactory.openSession();
+        String queryString = "from Resource where  topic.visibility = :visibility order by date(createdDate) desc ";
+        Query query = session.createQuery(queryString);
+        query.setString("visibility", "Public");
+        query.setMaxResults(5);
+        List<Resource> recent = query.list();
+
+        return recent;
+
+    }
 }

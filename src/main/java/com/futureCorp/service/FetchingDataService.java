@@ -41,4 +41,9 @@ public class FetchingDataService implements FetchingDataServiceInterface{
     public List<Object> fetchingListForAdmin(String className, String type) {
         return fetchingDaoInterface.fetchDataforAdmin(className,type);
     }
+
+    @Override
+    public List<Resource> fetchingRecentShares() {
+        return fetchingDaoInterface.fetchRecentShares();
+    }
 }

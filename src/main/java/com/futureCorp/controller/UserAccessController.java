@@ -1,9 +1,7 @@
 package com.futureCorp.controller;
 
 import com.futureCorp.model.User;
-import com.futureCorp.service.LoginServiceInterface;
-import com.futureCorp.service.RegistrationServiceInterface;
-import com.futureCorp.service.ValidatorServiceInterface;
+import com.futureCorp.service.*;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,6 +34,9 @@ public class UserAccessController {
     @Autowired
     LoginServiceInterface loginServiceInterface;
 
+    @Autowired
+    FetchingDataServiceInterface fetchingDataServiceInterface;
+
     String view;
 
     @RequestMapping("")
@@ -44,7 +45,7 @@ public class UserAccessController {
 
                 ModelAndView modelAndView = new ModelAndView("home");
                 modelAndView.addObject("user", new User());
-
+                modelAndView.addObject("recentShares",fetchingDataServiceInterface.fetchingRecentShares());
                 return modelAndView;
             }
             else

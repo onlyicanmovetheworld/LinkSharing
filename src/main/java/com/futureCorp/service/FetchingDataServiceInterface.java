@@ -27,5 +27,8 @@ public interface FetchingDataServiceInterface {
         return null;
 
     }
-
+    default List<Resource> fetchingRecentShares()
+    {
+        return null;
+    }
 }
