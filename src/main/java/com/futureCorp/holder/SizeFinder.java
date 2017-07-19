@@ -8,7 +8,7 @@ import java.util.List;
 public interface SizeFinder extends SessionInteractor {
 
 
-    default Long fetchMaxSize(String topicName)
+    default Long fetchMaxSizeTopicResource(String topicName)
     {   Session session;
         session = sessionFactory.openSession();
         String topic=topicName.substring(0,topicName.indexOf("By"));
@@ -17,6 +17,21 @@ public interface SizeFinder extends SessionInteractor {
         String queryString = " select count(*) from Resource where topic.name = :name and  topic.createdBy.username = :username";
         Query query = session.createQuery(queryString);
         query.setString("name",topic);
+        query.setString("username",username);
+
+        Long max = (Long)query.uniqueResult();
+
+        return max;
+    }
+
+    default Long fetchMaxSizeInbox(String username)
+    {   Session session;
+        session = sessionFactory.openSession();
+
+
+        String queryString = " select count(*) from ReadingItem r where r.user.username = :username and  isRead = false";
+        Query query = session.createQuery(queryString);
+
         query.setString("username",username);
 
         Long max = (Long)query.uniqueResult();

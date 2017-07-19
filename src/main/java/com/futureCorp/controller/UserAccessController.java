@@ -1,6 +1,7 @@
 package com.futureCorp.controller;
 
 import com.futureCorp.holder.Fetcher;
+import com.futureCorp.holder.SizeFinder;
 import com.futureCorp.model.User;
 import com.futureCorp.service.*;
 import org.hibernate.Session;
@@ -26,7 +27,7 @@ import java.nio.file.Paths;
 
 
 @Controller
-public class UserAccessController implements Fetcher {
+public class UserAccessController implements Fetcher,SizeFinder {
 
 
 
@@ -116,11 +117,15 @@ public class UserAccessController implements Fetcher {
         if(httpServletRequest.getSession().getAttribute("inviteTopic")==null&&httpServletRequest.getSession().getAttribute("username")!=null)
         {
             ModelAndView modelAndView = new ModelAndView("dashboard");
-            modelAndView.addObject("inbox",fetchingDataServiceInterface.fetchingInbox(httpServletRequest.getSession().getAttribute("username").toString(),0));
-            User user = fetchUser(httpServletRequest.getSession().getAttribute("username").toString());
+            String username =httpServletRequest.getSession().getAttribute("username").toString();
+            modelAndView.addObject("inbox",fetchingDataServiceInterface.fetchingInbox(username,0));
+            User user = fetchUser(username);
             modelAndView.addObject("user",user);
-            modelAndView.addObject("subNumber",50);
-            modelAndView.addObject("topicNumber",30);
+
+            modelAndView.addObject("maxSize",fetchMaxSizeInbox(username));
+
+            modelAndView.addObject("subNumber",fetchCountSubscription(username));
+            modelAndView.addObject("topicNumber",fetchCountTopic(username));
             return modelAndView;
         }
         else

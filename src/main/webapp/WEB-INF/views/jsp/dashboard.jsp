@@ -37,7 +37,7 @@
 
 
 
-                        <div class="pull-left " style="width:100px;">
+                        <div class="pull-left " style="width:80px;">
 
                             <h4 style="width:100%;text-align:center;"><i>Subscriptions</i></h4>
                             <h4 style="width:100%;text-align:center;">${subNumber}</h4>
@@ -45,7 +45,7 @@
                         </div>
 
 
-                        <div class="pull-right " style="width:100px;">
+                        <div class="pull-right " style="width:80px;">
 
                         <h4 style="width:100%;text-align:center;"><i>Topics</i></h4>
                         <h4 style="width:100%;text-align:center;">${topicNumber}</h4>
@@ -65,52 +65,129 @@
             <li class="list-group-item head-color" >Inbox</li>
 
 
-            <li class="list-group-item">
-                <c:if test="${empty inbox}">
-            <li class="list-group-item head-color" >Nothing to show</li>
-                </c:if>
-                <c:if test="${not empty inbox}">
-                    <c:forEach items="${inbox}" var="item">
-                        <div class="media">
-                            <div class="media-left">
-                                <img src="imageFetch?username=${item.createdBy.username}" width="120" height="120">
-                            </div>
-                            <div class="media-body">
-                                <h4 class="media-heading">${item.createdBy.firstName}   ${item.createdBy.lastName}  <small><i>@${item.createdBy.username} </i></small><a href="" style="float:right; font-size:12px">${item.topic.name}</a></h4>
-                                <p>${item.description}</p>
-                                <div class="pgd">
-                                    <div class="soc">
-                                        <a href="#" class="fa fa-facebook"></a>
-                                        <a href="#" class="fa fa-twitter"></a>
-                                        <a href="#" class="fa fa-google-plus"></a>
-                                    </div>
-                                <div class="pull-right d-inline-block">
+        <%@include file="inboxElementViewer.jsp"%>
 
-
-                                    <c:choose>
-                                        <c:when test="${item.resourceType=='Document'}">
-                                            <a class="p-5" style="float:left" href='/download?filePath="+${item.link}+"' download>Download</a>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <a class="p-5" style="float:left" href="${item.link}" target="_blank">View Link</a>
-                                        </c:otherwise>
-                                    </c:choose>
-                                    <a href="" class="p-5" style="float:left">Mark as read</a>
-                                    <a href="" class="p-5" style="float:left">View post</a>
-                                </div>
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-                    </c:forEach>
-                </c:if>
-
-            </li>
         </ul>
     </div>
 </div>
 </div>
+<script>
+    $(function () {
 
+        var index = 0;
+        var maxSize="${maxSize}";
+
+        setReadListener();
+
+        function setReadListener() {
+            $('.read').on('click',function (e) {
+
+                $.ajax({
+                    url: "markAsRead",
+                    data: {
+                        id:$(e.target).closest('div.media').attr('id')
+                    },
+                    type: "post",
+                    success: function (r) {
+
+                        fetchData();
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    }
+                });
+            });
+        }
+
+
+
+
+
+
+        $('#prev').attr('disabled',true);
+
+        if(index >= maxSize-5)
+        {
+            $('#next').attr('disabled',true);
+        }
+
+        $('#next').click(function () {
+            index+=5;
+
+            if(index>0)
+            {
+                $('#prev').attr('disabled',false);
+            }
+            if(index >= maxSize-5)
+            {
+                $('#next').attr('disabled',true);
+            }
+            fetchData();
+        });
+        $('#prev').click(function () {
+            index-=5;
+            if(index==0)
+            {
+                $('#prev').attr('disabled',true);
+            }
+            if(index < maxSize-5)
+            {
+                $('#next').attr('disabled',false);
+            }
+            fetchData();
+        });
+
+        function fetchData()
+
+        {
+            $.ajax({
+                url: "fetchAjaxInbox",
+                data: {
+                    index:index
+                },
+                type: "post",
+                success: function (r) {
+
+                    $("#inboxDiv").html("");
+                    $.each(r, function(k,v) {
+                        var anchor;
+                        if(v.resource.resourseType=="Document")
+                        {
+                            anchor = "<a class='p-5' style='float:left' href='/download?filePath="+v.resource.link+"' download>Download</a>";
+                        }
+                        else
+                        {
+                            anchor= "<a class='p-5' style='float:left' href='"+v.resource.link+"' target='_blank'>View Link</a>";
+                        }
+                        $('#inboxDiv').append("<div class='media' id='"+v.id+"'> <div class='media-left'> " +
+                            "<img src='imageFetch?username="+v.resource.createdBy.username+"' width='120' height='120'></div>"+
+                           " <div class='media-body'>"+
+                           " <h4 class='media-heading'>"+v.resource.createdBy.firstName+"  "+v.resource.createdBy.lastName+" <small><i>@"+v.resource.createdBy.username+
+                            " </i></small><a href='' style='float:right; font-size:12px'>"+v.resource.topic.name+"</a></h4>"+
+                            "<p>"+v.resource.description+"</p>"+
+                            "<div class='pgd'>"+
+                            "<div class='soc'>"+
+                            "<a href='#' class='fa fa-facebook'></a>"+
+                            "<a href='#' class='fa fa-twitter'></a>"+
+                            "<a href='#' class='fa fa-google-plus'></a></div>"+
+                            "<div class='pull-right d-inline-block'>"+anchor+
+
+
+                        "<a  class='p-5 read' style='float:left'>Mark as read</a>"+
+                            "<a href='' class='p-5' style='float:left'>View post</a>"+
+                       " </div> </div> </div> </div> <hr>");
+
+                    });
+                        setReadListener();
+              },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
+        }
+
+    });
+</script>
 
 
 </body>

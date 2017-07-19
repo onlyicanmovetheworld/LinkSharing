@@ -32,6 +32,8 @@
     <bean id="updateDataDaoInterface" class="com.futureCorp.dao.UpdateDataDao"/>
     <bean id="addReadingItemDaoInterface" class="com.futureCorp.dao.AddReadingItemDao"/>
     <bean id="sendInviteInterface" class="com.futureCorp.service.SendInvite"/>
+    <bean id="userActionServiceInterface" class="com.futureCorp.service.UserActionService"/>
+    <bean id="userActionDaoInterface" class="com.futureCorp.dao.UserActionDao"/>
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/views/jsp/"></property>
         <property name="suffix" value=".jsp"></property>

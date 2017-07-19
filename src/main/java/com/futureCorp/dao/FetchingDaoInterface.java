@@ -1,5 +1,6 @@
 package com.futureCorp.dao;
 
+import com.futureCorp.model.ReadingItem;
 import com.futureCorp.model.Resource;
 import com.futureCorp.model.Topic;
 import org.hibernate.Query;
@@ -36,7 +37,7 @@ public interface FetchingDaoInterface {
         return null;
     }
 
-    default List<Resource> fetchInbox(String username,Integer index) {
+    default List<ReadingItem> fetchInbox(String username, Integer index) {
 
         return null;
     }

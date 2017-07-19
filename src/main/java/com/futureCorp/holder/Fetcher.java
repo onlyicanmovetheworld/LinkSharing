@@ -30,4 +30,31 @@ public interface Fetcher extends SessionInteractor{
 
         return  (Topic)queryResult;
     }
+
+    default Long fetchCountSubscription(String username)
+    {
+        Session session = sessionFactory.openSession();
+        startSession(session);
+        String queryString = "select count(*)from  Subscription s where s.user.username = :username";
+        Query query = session.createQuery(queryString);
+        query.setString("username", username);
+
+        Long count =(Long) query.uniqueResult();
+        stopSession(session);
+
+        return  count;
+    }
+
+    default Long fetchCountTopic(String username)
+    {
+        Session session = sessionFactory.openSession();
+        startSession(session);
+        String queryString = "select count(*)from  Topic t where t.createdBy.username = :username";
+        Query query = session.createQuery(queryString);
+        query.setString("username", username);
+        Long count =(Long) query.uniqueResult();
+        stopSession(session);
+
+        return  count;
+    }
 }

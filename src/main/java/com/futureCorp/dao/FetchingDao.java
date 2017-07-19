@@ -2,6 +2,7 @@ package com.futureCorp.dao;
 
 import com.futureCorp.holder.SessionInteractor;
 
+import com.futureCorp.model.ReadingItem;
 import com.futureCorp.model.Resource;
 import com.futureCorp.model.Topic;
 import org.hibernate.Query;
@@ -116,14 +117,14 @@ Session session;
     }
 
     @Override
-    public List<Resource> fetchInbox(String username,Integer index) {
+    public List<ReadingItem> fetchInbox(String username, Integer index) {
         session = sessionFactory.openSession();
-        String queryString = " select resource from ReadingItem r where  r.user.username = :username and isRead = false ";
+        String queryString = " from ReadingItem r where  r.user.username = :username and isRead = false ";
         Query query = session.createQuery(queryString);
         query.setString("username", username);
         query.setFirstResult(index);
         query.setMaxResults(5);
-        List<Resource> inbox = query.list();
+        List<ReadingItem> inbox = query.list();
 
         return inbox;
 

@@ -1,5 +1,6 @@
 package com.futureCorp.service;
 
+import com.futureCorp.model.ReadingItem;
 import com.futureCorp.model.Resource;
 import com.futureCorp.model.Topic;
 
@@ -31,7 +32,7 @@ public interface FetchingDataServiceInterface {
     {
         return null;
     }
-    default List<Resource> fetchingInbox(String username, Integer index)
+    default List<ReadingItem> fetchingInbox(String username, Integer index)
     {
         return null;
     }

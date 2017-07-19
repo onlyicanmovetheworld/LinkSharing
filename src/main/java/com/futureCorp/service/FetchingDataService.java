@@ -1,6 +1,7 @@
 package com.futureCorp.service;
 
 import com.futureCorp.dao.FetchingDaoInterface;
+import com.futureCorp.model.ReadingItem;
 import com.futureCorp.model.Resource;
 import com.futureCorp.model.Topic;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +49,7 @@ public class FetchingDataService implements FetchingDataServiceInterface{
     }
 
     @Override
-   public List<Resource> fetchingInbox(String username,Integer index)
+   public List<ReadingItem> fetchingInbox(String username, Integer index)
     {
         return fetchingDaoInterface.fetchInbox(username,index);
     }

@@ -21,6 +21,7 @@ public class AddReadingItemDao implements AddReadingItemDaoInterface,SessionInte
     public Boolean addReadingItem(Resource resource) {
             ReadingItem item;
         session = sessionFactory.openSession();
+
         String queryString = " select user.username from Subscription where topic.name = :name and  topic.createdBy.username = :username";
         Query query = session.createQuery(queryString);
         query.setString("name",resource.getTopic().getName());
@@ -43,10 +44,6 @@ public class AddReadingItemDao implements AddReadingItemDaoInterface,SessionInte
         return true;
 
     }
-
-
-
-
 
 
 }

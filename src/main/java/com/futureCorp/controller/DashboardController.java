@@ -1,14 +1,9 @@
 package com.futureCorp.controller;
 
+import com.futureCorp.dao.UserActionDaoInterface;
 import com.futureCorp.holder.SizeFinder;
-import com.futureCorp.model.CreateLinkedResource;
-import com.futureCorp.model.Resource;
-import com.futureCorp.model.ResourceType;
-import com.futureCorp.model.Topic;
-import com.futureCorp.service.FetchingDataServiceInterface;
-import com.futureCorp.service.ResourceAddingServiceInterface;
-import com.futureCorp.service.SendInviteInterface;
-import com.futureCorp.service.TopicAddingServiceInterface;
+import com.futureCorp.model.*;
+import com.futureCorp.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -42,7 +37,8 @@ public class DashboardController implements SizeFinder {
     @Autowired
     SendInviteInterface sendInviteInterface;
 
-
+    @Autowired
+    UserActionServiceInterface userActionServiceInterface;
 
 
     @RequestMapping(value = "/addTopic",method = RequestMethod.POST)
@@ -80,8 +76,8 @@ public class DashboardController implements SizeFinder {
         ModelAndView modelAndView = new ModelAndView("searchedTopic");
         if(index.equalsIgnoreCase("0"))
         {
-            modelAndView.addObject("maxSize",fetchMaxSize(topicName));
-            System.out.println("there"+fetchMaxSize(topicName));
+            modelAndView.addObject("maxSize",fetchMaxSizeTopicResource(topicName));
+            System.out.println("there"+fetchMaxSizeTopicResource(topicName));
         }
         List<Resource> resources = fetchingDataServiceInterface.fetchingList(topicName, Integer.parseInt(index));
 
@@ -117,6 +113,15 @@ public class DashboardController implements SizeFinder {
 
     }
 
+    @RequestMapping(value = "/fetchAjaxInbox", method=RequestMethod.POST)
+    public @ResponseBody List<ReadingItem> showInbox(@RequestParam("index")String index,HttpServletRequest request,ModelAndView modelAndView)
+    {
+
+        List<ReadingItem> inbox = fetchingDataServiceInterface.fetchingInbox(request.getSession().getAttribute("username").toString(), Integer.parseInt(index));
+
+        return inbox;
+
+    }
 
 
     @RequestMapping(value = "/addLink",method = RequestMethod.POST)
@@ -179,7 +184,12 @@ public class DashboardController implements SizeFinder {
     }
 
 
+    @RequestMapping("/markAsRead")
+    public @ResponseBody String markAsRead(@RequestParam("id") String id)
+    {
 
+        return userActionServiceInterface.markingAsRead(Integer.parseInt(id))+"";
+    }
 
 
 
