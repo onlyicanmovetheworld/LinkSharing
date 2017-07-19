@@ -20,9 +20,9 @@ public class User {
     private byte[] photo;
     private Boolean admin = false;
     private Boolean active = true;
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date dateCreated = new Date();
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdated = new Date();
 
 

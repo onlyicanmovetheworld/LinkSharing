@@ -31,4 +31,8 @@ public interface FetchingDataServiceInterface {
     {
         return null;
     }
+    default List<Resource> fetchingInbox(String username, Integer index)
+    {
+        return null;
+    }
 }

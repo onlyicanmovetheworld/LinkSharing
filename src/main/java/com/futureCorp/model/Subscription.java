@@ -14,7 +14,7 @@ public class Subscription {
     private User user;
     @Enumerated(EnumType.STRING)
     Seriousness seriousness = Seriousness.Serious;
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date dateCreated = new Date();
 
     public Integer getSubscriptionId() {

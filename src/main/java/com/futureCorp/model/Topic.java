@@ -13,9 +13,9 @@ public class Topic {
     private String name;
     @ManyToOne
     private User createdBy;
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date dateCreated = new Date();
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdated= new Date();
     @Enumerated(EnumType.STRING)
     private Visibility visibility =Visibility.Public;

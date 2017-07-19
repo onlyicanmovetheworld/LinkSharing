@@ -46,4 +46,10 @@ public class FetchingDataService implements FetchingDataServiceInterface{
     public List<Resource> fetchingRecentShares() {
         return fetchingDaoInterface.fetchRecentShares();
     }
+
+    @Override
+   public List<Resource> fetchingInbox(String username,Integer index)
+    {
+        return fetchingDaoInterface.fetchInbox(username,index);
+    }
 }

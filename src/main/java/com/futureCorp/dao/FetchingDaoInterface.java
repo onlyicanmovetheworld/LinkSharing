@@ -36,4 +36,8 @@ public interface FetchingDaoInterface {
         return null;
     }
 
+    default List<Resource> fetchInbox(String username,Integer index) {
+
+        return null;
+    }
 }

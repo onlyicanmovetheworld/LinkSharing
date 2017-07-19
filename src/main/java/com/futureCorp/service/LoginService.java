@@ -18,14 +18,9 @@ public class LoginService implements LoginServiceInterface,NullChecker,HttpSessi
     public String loginUser(String credentials, String password, HttpServletRequest request) {
         User fetchedUser;
 
-        if(credentials.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$"))
-        {
-            fetchedUser=loginDaoInterface.validateUserViaEmail(credentials,password);
-        }
-        else
-        {
-            fetchedUser=loginDaoInterface.validateUserViaUsername(credentials,password);
-        }
+
+            fetchedUser=loginDaoInterface.validateUser(credentials,password);
+
         if(!nullCheck(fetchedUser)&& fetchedUser.getActive())
         {
             setSessionAttribute("username",fetchedUser.getUsername(),request.getSession());

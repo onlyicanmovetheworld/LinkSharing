@@ -105,13 +105,27 @@ Session session;
     @Override
     public List<Resource> fetchRecentShares() {
         session = sessionFactory.openSession();
-        String queryString = "from Resource where  topic.visibility = :visibility order by date(createdDate) desc ";
+        String queryString = "from Resource where  topic.visibility = :visibility order by createdDate desc ";
         Query query = session.createQuery(queryString);
         query.setString("visibility", "Public");
         query.setMaxResults(5);
         List<Resource> recent = query.list();
 
         return recent;
+
+    }
+
+    @Override
+    public List<Resource> fetchInbox(String username,Integer index) {
+        session = sessionFactory.openSession();
+        String queryString = " select resource from ReadingItem r where  r.user.username = :username and isRead = false ";
+        Query query = session.createQuery(queryString);
+        query.setString("username", username);
+        query.setFirstResult(index);
+        query.setMaxResults(5);
+        List<Resource> inbox = query.list();
+
+        return inbox;
 
     }
 }

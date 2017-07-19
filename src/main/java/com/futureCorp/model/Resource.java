@@ -14,9 +14,9 @@ public class Resource {
     private User createdBy;
     @ManyToOne
     private Topic topic;
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate = new Date();
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdated = new Date();
     @Enumerated(EnumType.STRING)
     ResourceType resourceType;

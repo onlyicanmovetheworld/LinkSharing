@@ -9,26 +9,15 @@ public class LoginDao implements LoginDaoInterface,SessionInteractor{
 
     User user;
     Session session;
-    @Override
-    public User validateUserViaEmail(String credentials,String password) {
-        session=sessionFactory.openSession();
-        startSession(session);
-        String queryString = "from User where emailId = :email AND password = :password";
-        Query query = session.createQuery(queryString);
-        query.setString("email", credentials);
-        query.setString("password",password);
-        Object queryResult = query.uniqueResult();
-        user = (User)queryResult;
-        stopSession(session);
-        return user;
-    }
+
 
     @Override
-    public User validateUserViaUsername(String credentials,String password) {
+    public User validateUser(String credentials,String password) {
         session= sessionFactory.openSession();
         startSession(session);
-        String queryString = "from User where username = :username AND password = :password";
+        String queryString = "from User where (username = :username OR emailId = :username) AND password = :password";
         Query query = session.createQuery(queryString);
+        System.out.println(credentials);
         query.setString("username", credentials);
         query.setString("password",password);
         Object queryResult = query.uniqueResult();

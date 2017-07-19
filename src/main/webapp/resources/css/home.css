@@ -46,9 +46,9 @@ body
 {
     margin:0 !important;
 }
-.p-0
+.p-5
 {
-    padding: 0 !important;
+    padding: 5px !important;
 }
 .head-color
 {
@@ -81,4 +81,18 @@ body
 .fa-facebook {
     background: #3B5998;
     color: white;
+}
+
+
+.s_icon
+{
+    margin: 5px 10px;
+    font-size: 20px;
+    color: white;
+    cursor:pointer;
+}
+
+.ui-front
+{
+    z-index:10000;
 }

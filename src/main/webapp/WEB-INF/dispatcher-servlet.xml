@@ -41,4 +41,8 @@
     </bean>
 <mvc:annotation-driven />
     <mvc:resources mapping="/resources/**" location="/resources/" />
+    <mvc:interceptors>
+        <bean class="com.futureCorp.holder.ControllerInterceptor" />
+    </mvc:interceptors>
+
 </beans>

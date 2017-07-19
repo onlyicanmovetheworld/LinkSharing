@@ -51,6 +51,7 @@ NEW</pre>
         </div>
     </nav>
     <div class="row">
+
         <div class="col-md-7 ">
             <ul class="list-group">
                 <li class="list-group-item head-color" >Recent shares</li>
@@ -61,7 +62,7 @@ NEW</pre>
                     <c:forEach items="${recentShares}" var="item">
                     <div class="media">
                         <div class="media-left">
-                            <img src="/resources/assets/unknown.png" width="120" height="120">
+                            <img src="imageFetch?username=${item.createdBy.username}" width="120" height="120">
                         </div>
                         <div class="media-body">
                             <h4 class="media-heading">${item.createdBy.firstName}   ${item.createdBy.lastName}  <small><i>@${item.createdBy.username} </i></small><a href="" style="float:right; font-size:12px">${item.topic.name}</a></h4>
@@ -76,6 +77,7 @@ NEW</pre>
                             </div>
                         </div>
                     </div>
+                        <hr>
                     </c:forEach>
                 </c:if>
 

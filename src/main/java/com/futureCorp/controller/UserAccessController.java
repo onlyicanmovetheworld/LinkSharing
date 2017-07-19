@@ -1,5 +1,6 @@
 package com.futureCorp.controller;
 
+import com.futureCorp.holder.Fetcher;
 import com.futureCorp.model.User;
 import com.futureCorp.service.*;
 import org.hibernate.Session;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -24,7 +26,7 @@ import java.nio.file.Paths;
 
 
 @Controller
-public class UserAccessController {
+public class UserAccessController implements Fetcher {
 
 
 
@@ -39,10 +41,10 @@ public class UserAccessController {
 
     String view;
 
-    @RequestMapping("")
+    @RequestMapping("/")
             public ModelAndView showHome(HttpServletRequest request)
             {   if(request.getSession().getAttribute("username")==null) {
-
+                System.out.println(request.getSession().getAttribute("username"));
                 ModelAndView modelAndView = new ModelAndView("home");
                 modelAndView.addObject("user", new User());
                 modelAndView.addObject("recentShares",fetchingDataServiceInterface.fetchingRecentShares());
@@ -50,6 +52,7 @@ public class UserAccessController {
             }
             else
             {
+
                return new ModelAndView("redirect:/dashboard");
             }
             }
@@ -108,17 +111,39 @@ public class UserAccessController {
     }
 
     @RequestMapping("/dashboard")
-    public String redirectDashboard(HttpServletRequest httpServletRequest)
+    public ModelAndView redirectDashboard(HttpServletRequest httpServletRequest)
     {
-        if(httpServletRequest.getSession().getAttribute("inviteTopic")==null)
+        if(httpServletRequest.getSession().getAttribute("inviteTopic")==null&&httpServletRequest.getSession().getAttribute("username")!=null)
         {
-            return "dashboard";
+            ModelAndView modelAndView = new ModelAndView("dashboard");
+            modelAndView.addObject("inbox",fetchingDataServiceInterface.fetchingInbox(httpServletRequest.getSession().getAttribute("username").toString(),0));
+            User user = fetchUser(httpServletRequest.getSession().getAttribute("username").toString());
+            modelAndView.addObject("user",user);
+            modelAndView.addObject("subNumber",50);
+            modelAndView.addObject("topicNumber",30);
+            return modelAndView;
         }
         else
         {   String topic =httpServletRequest.getSession().getAttribute("inviteTopic").toString();
         httpServletRequest.getSession().setAttribute("inviteTopic",null);
-            return "redirect:/subscribeToInvite?name="+topic;
+            return new ModelAndView("redirect:/subscribeToInvite?name="+topic);
         }
+    }
+
+    @RequestMapping("/imageFetch")
+    public void imageFetcher(@RequestParam("username") String username, HttpServletResponse response)
+    {
+
+                User user = fetchUser(username);
+
+                byte[] photo = user.getPhoto();
+
+        try {
+            response.getOutputStream().write(photo);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
 }

@@ -9,13 +9,10 @@ public interface LoginDaoInterface {
 
 
 
-    default User validateUserViaEmail(String credentials, String password)
+    default User validateUser(String credentials, String password)
     {
         return null;
     }
-    default User validateUserViaUsername(String credentials,String password)
-    {
-        return null;
-    }
+
 
 }
