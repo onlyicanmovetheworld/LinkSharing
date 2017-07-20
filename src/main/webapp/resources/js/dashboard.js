@@ -3,10 +3,15 @@
 
 
      $('#logout').on('click',function () {
-         window.location.href="\logout";
+         window.location.href="/logout";
 
      });
 
+
+ $('#profile').on('click',function () {
+         window.location.href="/updateProfile";
+
+     });
 
 
 

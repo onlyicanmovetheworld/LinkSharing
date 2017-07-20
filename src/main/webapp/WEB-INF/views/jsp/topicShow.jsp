@@ -48,7 +48,7 @@
 
                             <div class="pull-right " style="width:80px;">
 
-                                <h4 style="width:100%;text-align:center;"><i>Topics</i></h4>
+                                <h4 style="width:100%;text-align:center;"><i>Posts</i></h4>
                                 <h4 style="width:100%;text-align:center;">${postNumber}</h4>
 
                             </div>

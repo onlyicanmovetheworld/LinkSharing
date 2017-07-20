@@ -104,7 +104,11 @@ public class UserAccessController implements Fetcher,SizeFinder {
 
             return "redirect:/";
         }
- return null;
+        else
+        {
+            return "redirect:/searchTopic?topicName="+name+"&index=0";
+        }
+
 
     }
 
@@ -117,6 +121,7 @@ public class UserAccessController implements Fetcher,SizeFinder {
             String username =httpServletRequest.getSession().getAttribute("username").toString();
             modelAndView.addObject("inbox",fetchingDataServiceInterface.fetchingInbox(username,0));
             User user = fetchUser(username);
+
             modelAndView.addObject("user",user);
 
             modelAndView.addObject("maxSize",fetchMaxSizeInbox(username));

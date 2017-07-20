@@ -195,6 +195,12 @@ public class DashboardController implements SizeFinder,Fetcher {
         return userActionServiceInterface.markingAsRead(Integer.parseInt(id))+"";
     }
 
-
+    @RequestMapping("/updateProfile")
+    public ModelAndView updateProfile(HttpServletRequest request)
+    {
+        ModelAndView modelAndView = new ModelAndView("updateProfile");
+       modelAndView.addObject("userData",fetchUser(request.getSession().getAttribute("username").toString()));
+       return modelAndView;
+    }
 
 }

@@ -25,14 +25,10 @@ public class LoginService implements LoginServiceInterface,NullChecker,HttpSessi
         if(!nullCheck(fetchedUser)&& fetchedUser.getActive())
         {
             request.getSession().setAttribute("username",fetchedUser.getUsername());
+            request.getSession().setAttribute("user",fetchedUser);
 
-            if (fetchedUser.getAdmin())
-            {
-                return "adminPage";
-            }
-            else {
                 return "dashboard";
-            }
+
         }
         else
         {

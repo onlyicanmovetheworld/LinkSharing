@@ -58,8 +58,8 @@ NEW</pre>
                     <p class="pull-left " style="font-size:15px;margin: 0px 5px;"><%=session.getAttribute("username")%></p>
                     <span class="caret pull-left" style="margin:10px 0 0 0;"></span></button>
                 <ul class="dropdown-menu ui-front">
-                    <li><a href="#">Profile</a></li>
-                    <li id="logout"><a href="#">LogOut</a></li>
+                    <li id="profile"><a >Profile</a></li>
+                    <li id="logout"><a >LogOut</a></li>
 
                 </ul>
             </div>
