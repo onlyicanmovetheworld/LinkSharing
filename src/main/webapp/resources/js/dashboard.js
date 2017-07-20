@@ -74,7 +74,7 @@
              },
              select: function (event, ui) {
 
-
+                    $('#search').val("");
                  window.location.href=ui.item.targetUrl;
 
 

@@ -20,7 +20,8 @@ public class SubscriptionService implements SubscriptionServiceInterface,Fetcher
     @Override
     public String subscribe(String username,String topicName,String seriousness) {
         User user = fetchUser(username);
-        Topic topic = fetchTopic(username,topicName);
+        topicName = username+"By"+topicName;
+        Topic topic = fetchTopic(topicName);
         Subscription subscription = new Subscription();
         subscription.setUser(user);
         subscription.setTopic(topic);

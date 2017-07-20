@@ -20,11 +20,9 @@ public class ResourceAddingService implements ResourceAddingServiceInterface,Fet
     @Override
     public String addingResource(CreateLinkedResource createLinkedResource, HttpServletRequest request) {
         Resource resource = new Resource();
-        String topicName=createLinkedResource.getTopic().substring(0,createLinkedResource.getTopic().indexOf("By"));
-        String username=createLinkedResource.getTopic().substring(createLinkedResource.getTopic().indexOf("By")+2,createLinkedResource.getTopic().length());
 
         resource.setCreatedBy(fetchUser(request.getSession().getAttribute("username").toString()));
-        resource.setTopic(fetchTopic(username,topicName));
+        resource.setTopic(fetchTopic(createLinkedResource.getTopic()));
         resource.setDescription(createLinkedResource.getDesc());
         resource.setLink(createLinkedResource.getLink());
         resource.setResourceType(createLinkedResource.getResourceType());

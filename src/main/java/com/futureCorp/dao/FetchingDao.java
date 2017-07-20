@@ -41,16 +41,17 @@ Session session;
     }
 
     @Override
-    public List<Resource> fetchResource(String topicName, Integer index) {
+    public List<Resource> fetchResource(String topicName,String username, Integer index) {
 
         session=sessionFactory.openSession();
 
-        String queryString = "from Resource where topic.name = :name AND topic.visibility = :visibility";
+        String queryString = "from Resource where topic.name = :name AND topic.createdBy.username =:username AND topic.visibility = :visibility";
         Query query = session.createQuery(queryString);
         query.setString("name", topicName);
+        query.setString("username", username);
         query.setString("visibility", "Public");
         query.setFirstResult(index);
-        query.setMaxResults(2);
+        query.setMaxResults(10);
         List<Resource> names = query.list();
 
         return names;

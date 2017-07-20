@@ -153,7 +153,7 @@
                         var anchor;
                         if(v.resource.resourseType=="Document")
                         {
-                            anchor = "<a class='p-5' style='float:left' href='/download?filePath="+v.resource.link+"' download>Download</a>";
+                            anchor = "<a class='p-5' style='float:left' href='/download?filePath=\"+"+v.resource.link+"+\"' download>Download</a>";
                         }
                         else
                         {

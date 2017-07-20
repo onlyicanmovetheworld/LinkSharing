@@ -22,7 +22,7 @@ import java.net.URLConnection;
 public class DownloadController {
 
     @RequestMapping(value = "/download",method = RequestMethod.GET)
-    public void downloadPDFResource( HttpServletRequest request,
+    public void downloadResource( HttpServletRequest request,
                                      HttpServletResponse response)
     {
 

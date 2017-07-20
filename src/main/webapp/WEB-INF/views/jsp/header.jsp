@@ -29,7 +29,9 @@ NEW</pre>
             <li><h4>Quick Help</h4></li>
         </ul>
 
-    </div><nav class="navbar head-color">
+    </div>
+    <% if(session.getAttribute("username")!=null){%>
+    <nav class="navbar head-color">
     <div class="container-fluid">
         <div class="navbar-header">
             <p class="navbar-brand m-0 " href="#">Link Sharing</p>
@@ -224,7 +226,7 @@ NEW</pre>
 
         </div>
     </div>
-
+<%}%>
 </div>
 
 

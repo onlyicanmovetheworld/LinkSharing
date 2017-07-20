@@ -29,13 +29,13 @@ public class FetchingDataService implements FetchingDataServiceInterface{
     @Override
     public List<Resource> fetchingList(String topicName, Integer index) {
 
-        topicName = topicName.substring(0,topicName.indexOf("By"));
-        System.out.println(topicName);
+        String topic=topicName.substring(0,topicName.indexOf("By"));
+        String username=topicName.substring(topicName.indexOf("By")+2,topicName.length());
         if(index==0)
         {
 
         }
-        return fetchingDaoInterface.fetchResource(topicName,index);
+        return fetchingDaoInterface.fetchResource(topic,username,index);
     }
 
     @Override

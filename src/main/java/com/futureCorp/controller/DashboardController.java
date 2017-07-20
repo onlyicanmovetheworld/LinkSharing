@@ -1,6 +1,7 @@
 package com.futureCorp.controller;
 
 import com.futureCorp.dao.UserActionDaoInterface;
+import com.futureCorp.holder.Fetcher;
 import com.futureCorp.holder.SizeFinder;
 import com.futureCorp.model.*;
 import com.futureCorp.service.*;
@@ -23,7 +24,7 @@ import java.util.Random;
 
 @Controller
 @EnableWebMvc
-public class DashboardController implements SizeFinder {
+public class DashboardController implements SizeFinder,Fetcher {
 
     @Autowired
     TopicAddingServiceInterface topicAddingServiceInterface;
@@ -73,16 +74,19 @@ public class DashboardController implements SizeFinder {
     @RequestMapping(value = "/searchTopic",method = RequestMethod.GET)
     public ModelAndView showTopic(@RequestParam("topicName")String topicName,@RequestParam("index")String index, ModelMap modelMap)
     {
-        ModelAndView modelAndView = new ModelAndView("searchedTopic");
+        ModelAndView modelAndView = new ModelAndView("topicShow");
         if(index.equalsIgnoreCase("0"))
         {
             modelAndView.addObject("maxSize",fetchMaxSizeTopicResource(topicName));
-            System.out.println("there"+fetchMaxSizeTopicResource(topicName));
+
         }
         List<Resource> resources = fetchingDataServiceInterface.fetchingList(topicName, Integer.parseInt(index));
+       Topic topic = fetchTopic(topicName);
+        modelAndView.addObject("subNumber",fetchCountSubscriptionTopic(topicName));
+        modelAndView.addObject("postNumber",fetchCountPost(topicName));
 
-        modelAndView.addObject("topicList",resources);
-        modelAndView.addObject("topicName",topicName);
+        modelAndView.addObject("resourceList",resources);
+        modelAndView.addObject("topic",topic);
         System.out.println(resources.size());
 
         return modelAndView;

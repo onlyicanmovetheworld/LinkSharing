@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 
 public class LoginService implements LoginServiceInterface,NullChecker,HttpSessionSetter{
 
+
     @Autowired
     LoginDaoInterface loginDaoInterface;
 
@@ -23,7 +24,7 @@ public class LoginService implements LoginServiceInterface,NullChecker,HttpSessi
 
         if(!nullCheck(fetchedUser)&& fetchedUser.getActive())
         {
-            setSessionAttribute("username",fetchedUser.getUsername(),request.getSession());
+            request.getSession().setAttribute("username",fetchedUser.getUsername());
 
             if (fetchedUser.getAdmin())
             {

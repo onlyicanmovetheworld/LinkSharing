@@ -15,7 +15,7 @@ public interface FetchingDaoInterface {
         return null;
     }
 
-    default List<Resource> fetchResource(String topicName ,Integer index)
+    default List<Resource> fetchResource(String topicName,String username ,Integer index)
     {
         return null;
     }

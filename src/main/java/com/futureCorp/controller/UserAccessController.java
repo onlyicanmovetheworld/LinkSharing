@@ -45,7 +45,7 @@ public class UserAccessController implements Fetcher,SizeFinder {
     @RequestMapping("/")
             public ModelAndView showHome(HttpServletRequest request)
             {   if(request.getSession().getAttribute("username")==null) {
-                System.out.println(request.getSession().getAttribute("username"));
+                System.out.println(request.getSession().getAttribute("inviteTopic"));
                 ModelAndView modelAndView = new ModelAndView("home");
                 modelAndView.addObject("user", new User());
                 modelAndView.addObject("recentShares",fetchingDataServiceInterface.fetchingRecentShares());
@@ -94,20 +94,17 @@ public class UserAccessController implements Fetcher,SizeFinder {
         return view;
     }
 
-    @RequestMapping("/subscribeToInvite")
-    public String subscribeToInvite(@RequestParam("name") String topicName,HttpServletRequest request)
+    @RequestMapping(value="/subscribeToInvite",method = RequestMethod.GET)
+    public String subscribeToInvite(@RequestParam("name") String name,HttpServletRequest request)
     {
-        String name=topicName.substring(0,topicName.indexOf("By"));
-        String username=topicName.substring(topicName.indexOf("By")+2,topicName.length());
+
         if(request.getSession().getAttribute("username")==null) {
-            request.getSession().setAttribute("inviteTopic", topicName);
+
+            request.getSession().setAttribute("inviteTopic", name);
 
             return "redirect:/";
         }
-        else
-        {
-            return "invite";
-        }
+ return null;
 
     }
 
@@ -124,14 +121,14 @@ public class UserAccessController implements Fetcher,SizeFinder {
 
             modelAndView.addObject("maxSize",fetchMaxSizeInbox(username));
 
-            modelAndView.addObject("subNumber",fetchCountSubscription(username));
+            modelAndView.addObject("subNumber",fetchCountSubscriptionUser(username));
             modelAndView.addObject("topicNumber",fetchCountTopic(username));
             return modelAndView;
         }
         else
         {   String topic =httpServletRequest.getSession().getAttribute("inviteTopic").toString();
         httpServletRequest.getSession().setAttribute("inviteTopic",null);
-            return new ModelAndView("redirect:/subscribeToInvite?name="+topic);
+            return new ModelAndView("redirect:/searchTopic?topicName="+topic+"&index=0");
         }
     }
 
