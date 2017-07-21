@@ -21,7 +21,7 @@ THE
 NEW</pre>
         <img class="s_orgLogo pull-left" src="/resources/assets/ttn.png">
         <ul class="pull-right list-inline ">
-            <li ><h4>Home</h4></li>
+            <li ><h4><a href="/">Home</a></h4></li>
             <li><h4>Quick Help</h4></li>
         </ul>
 
@@ -29,13 +29,13 @@ NEW</pre>
 </div>
 
 
-    <div class="container">
+    <div class="container " >
         <div class="row">
-            <div class="col-md-5">
+            <div class="col-md-5" style="margin-top:5%;">
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <div class="text-center">
-                            <h2 ><i class="fa fa-lock fa-4x"></i></h2>
+
                             <h2 class="text-center">Forgot Password?</h2>
                             <p>Please provide us your Email Address. We are here to help you</p>
                             <div class="panel-body">
@@ -44,8 +44,7 @@ NEW</pre>
 
                                     <div class="form-group">
                                         <div class="input-group">
-                                    <span class="input-group-addon"><i
-                                            class="glyphicon glyphicon-envelope color-blue"></i></span>
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-envelope color-blue"></i></span>
                                             <input id="email" name="email" placeholder="Email Address" class="form-control" type="email">
                                         </div>
                                     </div>
@@ -60,34 +59,24 @@ NEW</pre>
                 </div>
             </div>
 
-            <%-- Email:<br>
- <input type="email" id="confirmEmail" name="email"><br>
- OTP:<br>
- <input type="number" id="otp" ><br>
- New Password:<br>
- <input type="password" id="password" ><br>
- Confirm New Password:<br>
- <input type="password" id="confirmPassword" ><br>
- <input type="submit" value="Update" id="updatePassword" />--%>
+
 
 
             <div class="col-md-7">
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <div class="text-center">
-                            <h3><i class="fa fa-unlock fa-4x"></i></h3>
+
                             <h2 class="text-center">Update Password</h2>
                             <p>You can reset your password here.</p>
                             <div class="panel-body">
-                                <form id="passwordEntryform" role="form" action="javascript:void(0)"
-                                      method="post">
+                                <form id="passwordEntryform" role="form" action="javascript:void(0)" method="post">
                                     <div class="form-group">
                                         <div class="input-group">
                                     <span class="input-group-addon">
                                 <label>Email</label>
                                     </span>
-                                            <input type="email" id="confirmEmail"
-                                                   placeholder="Enter email" class="form-control">
+                                            <input type="email" id="confirmEmail" placeholder="Enter email" class="form-control">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -101,21 +90,18 @@ NEW</pre>
                                         <div class="input-group">
                                     <span class="input-group-addon">
                                         <label>Password</label></span>
-                                            <input type="password" id="password"
-                                                   placeholder="Enter password" class="form-control">
+                                            <input type="password" id="password" placeholder="Enter password" class="form-control">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="input-group">
                                     <span class="input-group-addon">
                                         <label>Confirm password</label></span>
-                                            <input type="password" name="confirm_password" id="confirmPassword"
-                                                   placeholder="Enter password again" class="form-control">
+                                            <input type="password" name="confirm_password" id="confirmPassword" placeholder="Enter password again" class="form-control">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <input type="submit" form="passwordEntryform"  id="updatePassword"
-                                               class="btn btn-lg btn-primary btn-block">
+                                        <input type="submit" form="passwordEntryform"  id="updatePassword" class="btn btn-lg btn-primary btn-block">
                                     </div>
                                 </form>
                             </div>

@@ -1,8 +1,3 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
 <head>
     <title>Title</title>
@@ -19,224 +14,230 @@
             width:100%;
         }
 
-
     </style>
 </head>
 <body>
 <div class="container-fluid">
     <div class="row ">
 
-        <%@include file="header.jsp"%>
 
+<%@include file="header.jsp"%>
 
     </div>
 </div>
 
 <div class="container-fluid">
     <div class="row ">
-        <select id="type">
+        <div class="form-group">
 
-        </select>
+            <select class="form-control input-lg" id="type">
 
-<div class=" col-md-12">
-    <table class="table User">
-        <thead class="head-color">
-        <tr>
-            <th>Id</th>
-            <th>Username</th>
-            <th>Email Id</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Active</th>
-            <th>Admin</th>
-        </tr>
-        </thead>
-        <tbody id="display">
-        </tbody>
+            </select>
+        </div>
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <table class="table User ">
+                <thead class="head-color ">
+                <tr >
+                    <th >Id</th>
+                    <th >Username</th>
+                    <th >Email Id</th>
+                    <th >First Name</th>
+                    <th>Last Name</th>
+                    <th >Active</th>
+                    <th >Admin</th>
+                </tr>
+                </thead>
+                <tbody id="display">
+                </tbody>
 
-    </table>
-    <table class="table Topic">
-        <thead class="head-color">
-        <tr>
-            <th>Id</th>
-            <th>Topic Name</th>
-            <th>Creator</th>
-            <th>Visibility</th>
-            <th>Delete</th>
+            </table>
+        </div>
+        <div class="col-md-4"></div>
+        <div class="col-md-8">
+            <table class="table Topic">
+                <thead class="head-color">
+                <tr>
+                    <th>Id</th>
+                    <th>Topic Name</th>
+                    <th>Creator</th>
+                    <th>Visibility</th>
+                    <th>Delete</th>
 
-        </tr>
-        </thead>
-        <tbody id="display">
-        </tbody>
+                </tr>
+                </thead>
+                <tbody id="display">
+                </tbody>
 
-    </table>
-    <table class="table Resource">
-        <thead class="head-color">
-        <tr>
-            <th>Id</th>
-            <th>Creator</th>
-            <th>Topic</th>
-            <th>Resource Type</th>
-            <th>Link/FilePath</th>
-            <th>Delete</th>
+            </table>
+        </div>
+        <div class="col-md-4"></div>
+        <div class="col-md-8">
+            <table class="table Resource">
+                <thead class="head-color">
+                <tr>
+                    <th>Id</th>
+                    <th>Creator</th>
+                    <th>Topic</th>
+                    <th>Resource Type</th>
+                    <th>Delete</th>
 
-        </tr>
-        </thead>
-        <tbody id="display">
-        </tbody>
+                </tr>
+                </thead>
+                <tbody id="display">
+                </tbody>
 
-    </table>
-</div>
+            </table>
+        </div>
     </div>
 
 
+</div>
 
 
+    <script>
 
-<script>
-
-    $(function () {
-
-
-    fetchData("all");
-    addOption();
-$('.${classname}').css('display','block');
-
-        function fetchData(type)
-        {
-            $.ajax({
-                url:"fetchDataForAdmin",
-                data:{className:"${classname}",
-                        type:type
-                },
-                type:"post",
-                success:function(r)
-                {   $("#display").empty();
-                    if("${classname}"=="User")
-                    {
-                       setAsUsers (r) ;
-                    }
-                    else if("${classname}"=="Topic")
-                    {
-                        setAsTopics(r);
-                    }
-                    else
-                    {
-                        setAsPosts(r);
-                    }
-
-                },
-                error:function(e)
-                {
-                    console.log(e);
-                }
-            });
-        }
-
-        $("#type").change(function () {
-
-            fetchData($(this).val());
-        });
+        $(function () {
 
 
-function setAsUsers(data) {
-    $(".${classname} > #display").empty();
+            fetchData("all");
+            addOption();
+            $('.${classname}').css('display','block');
 
-            $.each(data,function (k,v) {
-
-                $(".${classname} > #display").append("<tr>\n" +
-                    "            <th>"+v.userId+"</th>\n" +
-                    "            <th>"+v.username+"</th>\n" +
-                    "            <th>"+v.emailId+"</th>\n" +
-                    "            <th>"+v.firstName+"</th>\n" +
-                    "            <th>"+v.lastName+"</th>\n" +
-                    "            <th>"+v.active+"</th>\n" +
-                    "            <th>"+v.admin+"</th>\n" +
-                    "        </tr>");
-
-
-            })
-
-
-}
-function setAsTopics(data) {
-    $(".${classname} > #display").empty();
-
-    $.each(data, function (k, v) {
-
-        $(".${classname} > #display").append("<tr>\n" +
-            "            <th>"+v.topicId+"</th>\n" +
-            "            <th>"+v.name+"</th>\n" +
-            "            <th>"+v.createdBy.username+"</th>\n" +
-            "            <th>"+v.visibility+"</th>\n" +
-            "            <th>Delete</th>\n" +
-            "        </tr>");
-
-
-    })
-
-
-}
-function setAsPosts(data) {
-
-
-    $(".${classname} > #display").empty();
-
-            $.each(data,function (k,v) {
-
-                $(".${classname} > #display").append("<tr>\n" +
-                    "            <th>"+v.resourceId+"</th>\n" +
-                    "            <th>"+v.createdBy.username+"</th>\n" +
-                    "            <th>"+v.topic.name+"</th>\n"+
-                    "            <th>"+v.resourceType+"</th>\n" +
-                    "            <th>"+v.link+"</th>\n" +
-                    "            <th>Delete</th>\n" +
-                    "        </tr>");
-
-
-            })
-
-
-        }
-
-
-        function addOption() {
-            var option1,option2,option3;
-            switch ("${classname}")
+            function fetchData(type)
             {
-                case "User":
-                {
-                    option1 =  $('<option></option>').attr("value", "all_users").text("All Users");
-                    option2 = $('<option></option>').attr("value", "Active").text("Active");
-                    option3 = $('<option></option>').attr("value", "inActive").text("Inactive");
-                    break;
-                }
-                case "Topic":
-                {
-                    option1 =  $('<option></option>').attr("value", "all_topics").text("All Topics");
-                    option2 = $('<option></option>').attr("value", "Public").text("Public");
-                    option3 = $('<option></option>').attr("value", "Private").text("Private");
-                    break;
-                }
-                case "Resource":
-                {
+                $.ajax({
+                    url:"fetchDataForAdmin",
+                    data:{className:"${classname}",
+                        type:type
+                    },
+                    type:"post",
+                    success:function(r)
+                    {   $("#display").empty();
+                        if("${classname}"=="User")
+                        {
+                            setAsUsers (r) ;
+                        }
+                        else if("${classname}"=="Topic")
+                        {
+                            setAsTopics(r);
+                        }
+                        else
+                        {
+                            setAsPosts(r);
+                        }
 
-                    option1 =  $('<option></option>').attr("value", "all_posts").text("All Posts");
-                    option2 = $('<option></option>').attr("value", "Link").text("Link");
-                    option3 = $('<option></option>').attr("value", "Document").text("Document");
-                    break;
-                }
+                    },
+                    error:function(e)
+                    {
+                        console.log(e);
+                    }
+                });
+            }
+
+            $("#type").change(function () {
+
+                fetchData($(this).val());
+            });
+
+
+            function setAsUsers(data) {
+                $(".${classname} > #display").empty();
+
+                $.each(data,function (k,v) {
+
+                    $(".${classname} > #display").append("<tr>\n" +
+                        "            <th>"+v.userId+"</th>\n" +
+                        "            <th>"+v.username+"</th>\n" +
+                        "            <th>"+v.emailId+"</th>\n" +
+                        "            <th>"+v.firstName+"</th>\n" +
+                        "            <th>"+v.lastName+"</th>\n" +
+                        "            <th>"+v.active+"</th>\n" +
+                        "            <th>"+v.admin+"</th>\n" +
+                        "        </tr>");
+
+
+                })
+
+
+            }
+            function setAsTopics(data) {
+                $(".${classname} > #display").empty();
+
+                $.each(data, function (k, v) {
+
+                    $(".${classname} > #display").append("<tr>\n" +
+                        "            <th>"+v.topicId+"</th>\n" +
+                        "            <th>"+v.name+"</th>\n" +
+                        "            <th>"+v.createdBy.username+"</th>\n" +
+                        "            <th>"+v.visibility+"</th>\n" +
+                        "            <th>Delete</th>\n" +
+                        "        </tr>");
+
+
+                })
+
+
+            }
+            function setAsPosts(data) {
+
+
+                $(".${classname} > #display").empty();
+
+                $.each(data,function (k,v) {
+
+                    $(".${classname} > #display").append("<tr>\n" +
+                        "            <th>"+v.resourceId+"</th>\n" +
+                        "            <th>"+v.createdBy.username+"</th>\n" +
+                        "            <th>"+v.topic.name+"</th>\n"+
+                        "            <th>"+v.resourceType+"</th>\n" +
+                        "            <th>Delete</th>\n" +
+                        "        </tr>");
+
+
+                })
+
+
             }
 
 
-            $("#type").append(option1);
-            $("#type").append(option2);
-            $("#type").append(option3);
-        }
+            function addOption() {
+                var option1,option2,option3;
+                switch ("${classname}")
+                {
+                    case "User":
+                    {
+                        option1 =  $('<option></option>').attr("value", "all_users").text("All Users");
+                        option2 = $('<option></option>').attr("value", "Active").text("Active");
+                        option3 = $('<option></option>').attr("value", "inActive").text("Inactive");
+                        break;
+                    }
+                    case "Topic":
+                    {
+                        option1 =  $('<option></option>').attr("value", "all_topics").text("All Topics");
+                        option2 = $('<option></option>').attr("value", "Public").text("Public");
+                        option3 = $('<option></option>').attr("value", "Private").text("Private");
+                        break;
+                    }
+                    case "Resource":
+                    {
+
+                        option1 =  $('<option></option>').attr("value", "all_posts").text("All Posts");
+                        option2 = $('<option></option>').attr("value", "Link").text("Link");
+                        option3 = $('<option></option>').attr("value", "Document").text("Document");
+                        break;
+                    }
+                }
 
 
-    });
-</script>
+                $("#type").append(option1);
+                $("#type").append(option2);
+                $("#type").append(option3);
+            }
+
+
+        });
+    </script>
 
 </body>
 </html>

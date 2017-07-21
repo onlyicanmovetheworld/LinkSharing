@@ -19,18 +19,35 @@ public class ValidationController {
 
     @RequestMapping("/validateUsername")
 
-    public  @ResponseBody String validateCredentials(@RequestParam("credential")String credential)
+    public  @ResponseBody String validateUsername(@RequestParam("username")String credential)
     {
        if(validatorServiceInterface.validationOfUser(credential))
         {
-            return "true";
+            return "false";
         }
         else
         {
-            return "false";
+            return "true";
         }
 
     }
+
+    @RequestMapping("/validateEmail")
+
+    public  @ResponseBody String validateEmail(@RequestParam("emailId")String emailId)
+    {
+        if(validatorServiceInterface.validationOfUser(emailId))
+        {
+            return "false";
+        }
+        else
+        {
+            return "true";
+        }
+
+    }
+
+
 
     @RequestMapping("/validateTopicName")
 
@@ -38,11 +55,11 @@ public class ValidationController {
     {
         if(validatorServiceInterface.validationOfTopic(request.getSession().getAttribute("username").toString(),topicName))
         {
-            return "true";
+            return "false";
         }
         else
         {
-            return "false";
+            return "true";
         }
 
     }

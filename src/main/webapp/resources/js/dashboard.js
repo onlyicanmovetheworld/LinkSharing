@@ -15,11 +15,43 @@
 
 
 
+$("#topicForm").validate({
+        rules: {
+            topicName:{
+                required: true,
+                remote:'/validateTopicName'
+            }
+
+        },
+        messages: {
+
+            topicName: {
+                required: "<font face='Times New Roman' color='red'><i>* Topic Required</i></font>",
+                remote:"<font face='Times New Roman' color='red'><i>* Topic Already Exists</i></font>"
+
+            }
+        }
+    });
+
+    $('#topicForm').ajaxForm({
+        success: function (msg) {
+            $("#addTopic").modal('hide');
+            $("#topicForm")[0].reset();
+            alert("Added Successfully");
+        },
+        error: function (msg) {
+            alert("Not Successfully Added");
+        }
+    });
+
+
+
 
          $('#documentForm').ajaxForm({
              success: function(msg) {
                     $('#documentForm')[0].reset();
                     $('#addDocument').modal('hide');
+                    alert("Added Successfully");
              },
              error: function(msg) {
                 alert("Couldn't upload file");
@@ -182,58 +214,9 @@ $('#documentTopic').autocomplete({
 
 
 
-         $('#name').on('keyup',function () {
-
-             $.ajax({
-                 url:"validateTopicName",
-                 data:{topicName:$("#name").val()},
-                 type:"post",
-                 success:function(r)
-                 {
-                     if(r==="true")
-                     {
-
-                       $('#addingTopic').attr('disabled',true);
-                     }
-                     else
-                     {
-                         $('#addingTopic').attr('disabled',false);
-                     }
 
 
-                 },
-                 error:function(e)
-                 {
-                     console.log(e);
-                 }
-             });
 
-         });
-
-
-             $('#addingTopic').on('click',function () {
-
-
-                     $.ajax({
-                         url: "addTopic",
-                         data: {
-                             name: $("#name").val(),
-                             visibility: $("#visibility").val()
-                         },
-                         type: "post",
-                         success: function (r) {
-
-                         $('#topicForm')[0].reset();
-                         $('#addTopic').modal('hide');
-                             console.log(r);
-
-                         },
-                         error: function (e) {
-                             console.log(e);
-                         }
-                     });
-
-                 });
 
 
          $('#addingLink').click(function () {

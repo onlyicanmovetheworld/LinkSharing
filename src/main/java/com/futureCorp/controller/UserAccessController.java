@@ -67,7 +67,7 @@ public class UserAccessController implements Fetcher,SizeFinder {
     }
 
     @RequestMapping(value = "/registerUser" ,method = RequestMethod.POST)
-    public String registerUser(@ModelAttribute("user") User user, BindingResult result, ModelMap modelMap, @RequestParam("photo")MultipartFile file,HttpServletRequest request) throws IOException {
+    public String registerUser(@ModelAttribute User user, BindingResult result, ModelMap modelMap, @RequestParam("photo")MultipartFile file,HttpServletRequest request) throws IOException {
         if(!file.isEmpty())
         {
             user.setPhoto(file.getBytes());

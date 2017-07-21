@@ -68,7 +68,7 @@
     </div>
     <div class="col-md-7">
 <ul class="list-group">
-<li class="list-group-item head-color">Update Details<small><i>Click to edit</i></small></li>
+<li class="list-group-item head-color">Update Details </li>
 <li class="list-group-item " id="child-disabled">
     <form method="post" action="updateUserProfileDetails"  id="updateDetails" >
         <div class="form-group">
@@ -83,7 +83,7 @@
         </div>
 
         <div class="form-group">
-            <label >User name</label>
+            <label >Username</label>
             <input type="text" name="username" id="username" required="true" class="form-control"  value="${userData.username}" title="Click to edit" />
 
         </div>

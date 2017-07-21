@@ -163,7 +163,7 @@
                             "<img src='imageFetch?username="+v.resource.createdBy.username+"' width='120' height='120'></div>"+
                            " <div class='media-body'>"+
                            " <h4 class='media-heading'>"+v.resource.createdBy.firstName+"  "+v.resource.createdBy.lastName+" <small><i>@"+v.resource.createdBy.username+
-                            " </i></small><a href='' style='float:right; font-size:12px'>"+v.resource.topic.name+"</a></h4>"+
+                            " </i></small><a href='/searchTopic?topicName="+v.resource.topic.name+"By"+v.resource.topic.createdBy.username+"&index=0' style='float:right; font-size:12px'>"+v.resource.topic.name+"</a></h4>"+
                             "<p>"+v.resource.description+"</p>"+
                             "<div class='pgd'>"+
                             "<div class='soc'>"+

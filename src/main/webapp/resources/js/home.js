@@ -1,63 +1,67 @@
 $(function () {
-    var check=[0,0,0];
-    $('#confirmPassword').focusout(function () {
-        if($("#password").val()!==$("#confirmPassword").val())
-        {
-            alert("password mismatch");
-            check[0]=1;
-        }
-        else
-        {
-            check[0]=0;
-        }
 
 
-    });
 
-    $("#username").focusout(function () {
-        ajaxCall($("#username").val(),this,1);
-    });
-    $("#emailId").focusout(function () {
-        ajaxCall($("#emailId").val(),this,2);
-    });
-    function ajaxCall(credential, tag,index) {
-        $.ajax({
-            url:"validateUsername",
-            data:{credential:credential},
-            type:"post",
-            success:function(r)
-            {
-                if(r==="true")
-                {
-
-                    console.log(tag);
-                    check[index]=1;
-                }
-                else
-                {
-                    check[index]=0;
-                }
-
+    $("#registrationForm").validate({
+        rules: {
+            firstName:{
+                required: true
+            },
+            lastName:{
+                required: true
+            },
+            emailId: {
+                required: true,
+                email: true,
+                remote:'/validateEmail'
 
             },
-            error:function(e)
-            {
-                console.log(e);
+            username: {
+                required: true,
+                remote:'/validateUsername'
+            },
+            password: {
+                required: true,
+                password:true
+            },
+            confirmPassword: {
+                required: true,
+                password:true,
+                equalTo: "#password"
             }
-        });
-    }
 
-    $("#register").on("click",function (e) {
-        if(check[0]!=0||check[1]!=0||check[2]!=0)
-        {
-            e.preventDefault();
-            console.log("Error");
-        }
-        else
-        {
-            console.log("Success");
+        },
+        messages: {
+            firstName:{
+                required:"<font face='Times New Roman' color='red'><i>* Firstname Required</i></font>"
+            },
+            lastName:{
+                required:"<font face='Times New Roman' color='red'><i>* Lastname Required</i></font>"
+            },
+            username: {
+                required: "<font face='Times New Roman' color='red'><i>* Username Required</i></font>",
+                remote:"<font face='Times New Roman' color='red'><i>* Username Already Acquired</i></font>"
+
+            },
+            emailId:
+                {
+                    required: "<font face='Times New Roman' color='red'><i>* Email Required</i></font>",
+                    remote:"<font face='Times New Roman' color='red'><i>* Email Already Acquired</i></font>"
+                },
+            password:{
+                required:"<font face='Times New Roman' color='red'><i>* Password Required</i></font>"
+            },
+            confirmPassword: {
+                required: "<font face='Times New Roman' color='red'><i>* Confirmation Required</i></font>",
+                equalTo: "<font face='Times New Roman' color='red'><i>* Password Mismatch</i></font>"
+            }
         }
     });
+
+
+
+
+
 
 
 

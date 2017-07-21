@@ -65,7 +65,7 @@ NEW</pre>
                             <img src="imageFetch?username=${item.createdBy.username}" width="120" height="120">
                         </div>
                         <div class="media-body">
-                            <h4 class="media-heading">${item.createdBy.firstName}   ${item.createdBy.lastName}  <small><i>@${item.createdBy.username} </i></small><a href="" style="float:right; font-size:12px">${item.topic.name}</a></h4>
+                            <h4 class="media-heading">${item.createdBy.firstName}   ${item.createdBy.lastName}  <small><i>@${item.createdBy.username} </i></small><a href="/searchTopic?topicName=${item.topic.name}By${item.topic.createdBy.username}&index=0" style="float:right; font-size:12px">${item.topic.name}</a></h4>
                             <p>${item.description}</p>
                             <div class="pgd">
                                 <div class="soc">
@@ -125,7 +125,7 @@ NEW</pre>
             <ul class="list-group">
                 <li class="list-group-item head-color">Login</li>
                 <li class="list-group-item">
-                    <form method="post" action="loginUser">
+                    <form method="post" id="loginForm"action="loginUser">
                         <div class="form-group">
                             <label for="credentials">Credential*</label>
                             <input type="text" class="form-control" id="credentials" name="credentials" placeholder="Enter credential" required>
@@ -144,30 +144,30 @@ NEW</pre>
 <ul class="list-group">
 <li class="list-group-item head-color">Register</li>
 <li class="list-group-item">
-<form:form method="post" action="registerUser"  modelAttribute="user" enctype="multipart/form-data">
+<form method="post" action="registerUser" id="registrationForm"  enctype="multipart/form-data">
     <div class="form-group">
     <label >First name*</label>
-    <form:input type="text" path="firstName"  required="true"  class="form-control" placeholder="firstname"/>
+    <input type="text"  name="firstName"   class="form-control" placeholder="firstname"/>
         </div>
         <div class="form-group">
         <label >Last name*</label>
-        <form:input type="text" path="lastName"  required="true"  class="form-control" placeholder="Lastname"/>
+        <input type="text"  name="lastName"  class="form-control" placeholder="Lastname"/>
             </div>
             <div class="form-group">
             <label >Email*</label>
-            <form:input type="email" path="emailId"  id="emailId" required="true" class="form-control" placeholder="Enter email"/>
+            <input type="email"  name="emailId" id="emailId"  class="form-control" placeholder="Enter email"/>
                 </div>
                 <div class="form-group">
                 <label >User name</label>
-                <form:input type="text" path="username" id="username" required="true" class="form-control"  placeholder="Username"/>
+                <input type="text"  name="username" id="username" class="form-control"  placeholder="Username"/>
                     </div>
                     <div class="form-group">
                     <label for="password">Password*</label>
-                    <form:input type ="password" path="password" id="password" required="true" class="form-control" placeholder="Enter password"/>
+                    <input type ="password" id="password" name="password" id="password" class="form-control" placeholder="Enter password"/>
                     </div>
                     <div class="form-group">
                     <label for="confirmPassword">Confirm password*</label>
-                    <input type ="password"  id="confirmPassword" required="true" class="form-control"  placeholder="Confirm password">
+                    <input type ="password" name="confirmPassword" id="confirmPassword" class="form-control"  placeholder="Confirm password">
                     </div>
                     <div class="form-group">
                     <label >Photo*</label>
@@ -179,7 +179,7 @@ NEW</pre>
                         <div class="checkbox">
                         <button type="submit" class="btn btn-primary" style="margin-left: 83%; clear: both;">Register</button>
                         </div>
-                        </form:form>
+                        </form>
                         </li>
                         </ul>
         </div>
@@ -190,8 +190,11 @@ NEW</pre>
 <spring:url value="/resources/js/home.js" var="coreJs" />
 <spring:url value="/resources/js/jquery.js" var="jqueryJs" />
 <script src="${jqueryJs}"></script>
-<script src="${coreJs}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
+<script src="${coreJs}"></script>
+
+
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 </body>

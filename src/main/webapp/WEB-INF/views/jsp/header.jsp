@@ -95,10 +95,10 @@ NEW</pre>
                     <ul class="list-group">
 
                         <li class="list-group-item">
-                            <form method="post" action="javascript:void(0)"  id="topicForm">
+                            <form method="post" action="addTopic"  id="topicForm">
                                 <div class="form-group">
                                     <label for="name">Topic Name*</label>
-                                    <input type="text" class="form-control"  id="name" name="name" placeholder="Enter Topic Name" required>
+                                    <input type="text" class="form-control"  id="name" name="topicName" placeholder="Enter Topic Name" >
                                 </div>
                                 <div class="form-group">
                                     <label for="visibility">Visibility*</label>
@@ -107,11 +107,11 @@ NEW</pre>
                                         <option value="Private">Private</option>
                                     </select>
                                 </div>
-
+                                <button type="submit" id="addingTopic" class="btn btn-primary" data-dismiss="#addTopic" style="margin-left: 83%;">Add Topic</button>
                             </form>
                         </li>
                     </ul>
-                    <button type="submit" id="addingTopic" class="btn btn-primary" data-dismiss="#addTopic" style="margin-left: 83%;">Add Topic</button>
+
                 </div>
 
 
@@ -140,11 +140,11 @@ NEW</pre>
                             <form method="post" action="javascript:void(0)"  id="inviteForm">
                                 <div class="form-group">
                                     <label for="email">Email Id*</label>
-                                    <input type="email" class="form-control"  id="email" name="email" placeholder="Enter Email" required>
+                                    <input type="email" class="form-control"  id="email" name="email" placeholder="Enter Email" required="true">
                                 </div>
                                 <div class="form-group">
                                     <label for="inviteTopic">Topic*</label>
-                                    <input type="text" class="form-control "  id="inviteTopic" name="topic" placeholder="Enter Topic Name" required>
+                                    <input type="text" class="form-control "  id="inviteTopic" name="topic" placeholder="Enter Topic Name" required="true">
                                 </div>
 
                             </form>
@@ -174,7 +174,7 @@ NEW</pre>
                             <form method="post" action="javascript:void(0)"  id="linkForm">
                                 <div class="form-group">
                                     <label for="link">Link*</label>
-                                    <input type="url" class="form-control"  id="link" name="link" placeholder="Enter Link" required>
+                                    <input type="url" class="form-control"  id="link" name="link" placeholder="Enter Link" required="true">
                                 </div>
                                 <div class="form-group">
                                     <label for="desc">Description*</label>
@@ -182,7 +182,7 @@ NEW</pre>
                                 </div>
                                 <div class="form-group">
                                     <label for="linkTopic">Topic*</label>
-                                    <input type="text" class="form-control "  id="linkTopic" name="topic" placeholder="Enter Topic Name" required>
+                                    <input type="text" class="form-control "  id="linkTopic" name="topic" placeholder="Enter Topic Name" required="true">
                                 </div>
 
                             </form>
@@ -211,7 +211,7 @@ NEW</pre>
                             <form method="post" action="addDocument" enctype="multipart/form-data" id="documentForm">
                                 <div class="form-group">
                                     <label for="file">Document*</label>
-                                    <input type="file" class="form-control"  id="file" name="file" placeholder="Browse" required>
+                                    <input type="file" class="form-control"  id="file" name="file" placeholder="Browse" required="true">
                                 </div>
                                 <div class="form-group">
                                     <label for="desc">Description*</label>
@@ -219,7 +219,7 @@ NEW</pre>
                                 </div>
                                 <div class="form-group">
                                     <label for="linkTopic">Topic*</label>
-                                    <input type="text" class="form-control "  id="documentTopic" name="topic" placeholder="Enter Topic Name" required>
+                                    <input type="text" class="form-control "  id="documentTopic" name="topic" placeholder="Enter Topic Name" required="true">
                                 </div>
                                 <button type="submit" id="addingDocument" class="btn btn-primary" data-dismiss="#addDocument" style="margin-left: 78%;">Add Document</button>
                             </form>
@@ -241,12 +241,12 @@ NEW</pre>
 <spring:url value="/resources/js/dashboard.js" var="coreJs" />
 <spring:url value="/resources/js/jquery.js" var="jqueryJs" />
 <script src="${jqueryJs}"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
 <script src="${coreJs}"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.1/jquery.form.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script>
 
 
