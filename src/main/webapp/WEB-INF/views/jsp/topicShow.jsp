@@ -78,8 +78,7 @@
                                     <img src="imageFetch?username=${item.createdBy.username}" width="120" height="120">
                                 </div>
                                 <div class="media-body">
-                                    <h4 class="media-heading">${item.createdBy.firstName}   ${item.createdBy.lastName}  <small><i>@${item.createdBy.username} </i></small><a href="" style="float:right; font-size:12px">${item.topic.name}</a></h4>
-                                    <p>${item.description}</p>
+                                     <p>${item.description}</p>
                                     <div class="pgd">
                                         <div class="soc">
                                             <a href="#" class="fa fa-facebook"></a>

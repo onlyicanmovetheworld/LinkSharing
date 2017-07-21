@@ -33,7 +33,7 @@
                                 <form method="post" action="updatePhoto"  enctype="multipart/form-data">
                                     <div class="form-group">
                                         <label for="file">Image*</label>
-                                        <input type="file" class="form-control"  id="file" name="file" placeholder="Browse" required="true">
+                                        <input type="file" class="form-control" accept="image/*"  id="file" name="file" placeholder="Browse" required="true">
                                     </div>
                                     <button type="submit"  class="btn btn-primary"  style="margin-left: 78%;">Update Image</button>
                                 </form>

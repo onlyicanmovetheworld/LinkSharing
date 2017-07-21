@@ -23,7 +23,7 @@
                     <img src="imageFetch?username=${item.resource.createdBy.username}" width="120" height="120">
                 </div>
                 <div class="media-body">
-                    <h4 class="media-heading">${item.resource.createdBy.firstName}   ${item.resource.createdBy.lastName}  <small><i>@${item.resource.createdBy.username} </i></small><a href="" style="float:right; font-size:12px">${item.resource.topic.name}</a></h4>
+                    <h4 class="media-heading">${item.resource.createdBy.firstName}   ${item.resource.createdBy.lastName}  <small><i>@${item.resource.createdBy.username} </i></small><a href="/searchTopic?topicName=${item.resource.topic.name}By${item.resource.topic.createdBy.username}&index=0" style="float:right; font-size:12px">${item.resource.topic.name}</a></h4>
                     <p>${item.resource.description}</p>
                     <div class="pgd">
                         <div class="soc">

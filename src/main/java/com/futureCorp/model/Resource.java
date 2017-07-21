@@ -54,6 +54,7 @@ public class Resource {
 
     public void setTopic(Topic topic) {
         this.topic = topic;
+
     }
 
     public Date getCreatedDate() {

@@ -1,4 +1,4 @@
-
+<%@ page import="com.futureCorp.model.User" %>
 
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -17,7 +17,7 @@
 </head>
 
 <body>
-
+<% User logInUser = (User) session.getAttribute("user");%>
 <div class="container-fluid">
     <div class="row s_header">
 			<pre class="s_orgName pull-left">TO
@@ -25,7 +25,7 @@ THE
 NEW</pre>
         <img class="s_orgLogo pull-left"  style="padding: 5px;" src="/resources/assets/ttn.png">
         <ul class="pull-right list-inline ">
-            <li ><h4>Home</h4></li>
+            <li ><h4><a href="/">Home</a></h4></li>
             <li><h4>Quick Help</h4></li>
         </ul>
 
@@ -59,6 +59,11 @@ NEW</pre>
                     <span class="caret pull-left" style="margin:10px 0 0 0;"></span></button>
                 <ul class="dropdown-menu ui-front">
                     <li id="profile"><a >Profile</a></li>
+                    <%if(logInUser.getAdmin()){%>
+                    <li ><a href="fetchUserForAdmin">Users</a></li>
+                    <li ><a href="fetchTopicForAdmin">Topics</a></li>
+                    <li ><a href="fetchPostForAdmin">Posts</a></li>
+                    <%}%>
                     <li id="logout"><a >LogOut</a></li>
 
                 </ul>

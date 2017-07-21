@@ -63,6 +63,7 @@ public class Topic {
 
     public Visibility getVisibility() {
         return visibility;
+
     }
 
     public void setVisibility(Visibility visibility) {

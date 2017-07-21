@@ -1,5 +1,7 @@
 package com.futureCorp.model;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -15,6 +17,7 @@ public class User {
     private String lastName;
     private String username;
     private String emailId;
+
     private String password;
     @Lob
     private byte[] photo;

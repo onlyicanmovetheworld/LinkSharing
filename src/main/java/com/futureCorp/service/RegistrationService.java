@@ -21,6 +21,7 @@ public class RegistrationService implements RegistrationServiceInterface,HttpSes
         if(registerDaoInterface.saveRegisteredUser(user))
         {
             setSessionAttribute("username",user.getUsername(),request.getSession());
+            user.setPassword("");
             request.getSession().setAttribute("user",user);
             return "dashboard";
         }

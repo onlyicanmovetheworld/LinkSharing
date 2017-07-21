@@ -172,7 +172,7 @@ NEW</pre>
                     <div class="form-group">
                     <label >Photo*</label>
 
-                    <input class="form-control"  placeholder="Browse"  type ="file" class="form-control"  name="photo" />
+                    <input class="form-control" accept="image/*" placeholder="Browse"  type ="file" class="form-control"  name="photo" />
 
 
                         </div>
